@@ -34,14 +34,17 @@ const Register = () => {
   const [referral, setReferral] = useState(searchParams.get("ref") || "");
   const [loading, setLoading] = useState(false);
 
-  // If user already logged in
   useEffect(() => {
-    if (user && user?.isAdmin !== true) {
-      router.push("/store");
-    } else {
-      router.push("/admin");
+    if (user) {
+      // User exists - check if admin
+      if (user.isAdmin === true) {
+        router.push("/admin");
+      } else {
+        router.push("/store");
+      }
     }
-  }, [user]);
+    // If no user, do nothing (stay on register page)
+  }, [user, router]);
 
   // Cloudinary upload
   const uploadImage = async (file: File) => {
