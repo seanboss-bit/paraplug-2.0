@@ -34,61 +34,64 @@ const images: HeroImage[] = [
   {
     id: 5,
     src: "https://res.cloudinary.com/dvo4tlcrx/image/upload/v1707101345/fwjgllab8ylhcyd6aymc.png",
-    alt: "Sneaker 4",
+    alt: "Sneaker 5",
   },
   {
     id: 6,
     src: "https://res.cloudinary.com/dvo4tlcrx/image/upload/v1694392204/oxf7z9ncimx4cjjwxn5q.png",
-    alt: "Sneaker 4",
+    alt: "Sneaker 6",
   },
   {
     id: 7,
     src: "https://res.cloudinary.com/dvo4tlcrx/image/upload/v1697709188/m9whn4s9lorf1pmhtjym.png",
-    alt: "Sneaker 4",
+    alt: "Sneaker 7",
   },
   {
     id: 8,
     src: "https://res.cloudinary.com/dvo4tlcrx/image/upload/v1694905706/ewu4gd8nyyf2dkthchye.png",
-    alt: "Sneaker 4",
+    alt: "Sneaker 8",
   },
   {
     id: 9,
     src: "https://res.cloudinary.com/dvo4tlcrx/image/upload/v1720147052/t0b4wps2bqiqdvdlkl2p.png",
-    alt: "Sneaker 4",
+    alt: "Sneaker 9",
   },
   {
     id: 10,
     src: "https://res.cloudinary.com/dvo4tlcrx/image/upload/v1703979185/ia7pp3whtwjkvr7e7llc.png",
-    alt: "Sneaker 4",
+    alt: "Sneaker 10",
   },
 ];
 
 const Hero: React.FC = () => {
-  const [current, setCurrent] = useState(0);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [current, setCurrent] = useState<number>(0);
 
-  // Auto-scroll every 4 seconds
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  // 🌀 Auto-scroll every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 4000);
+
     return () => clearInterval(interval);
   }, []);
 
-  // Scroll the active thumbnail into view
+  // 🎯 Scroll active thumbnail into view
   useEffect(() => {
     const activeThumb = thumbRefs.current[current];
     const container = scrollRef.current;
+
     if (activeThumb && container) {
       const thumbRect = activeThumb.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
 
-      // Check if the active thumb is out of view
-      if (
+      const isOutOfView =
         thumbRect.left < containerRect.left ||
-        thumbRect.right > containerRect.right
-      ) {
+        thumbRect.right > containerRect.right;
+
+      if (isOutOfView) {
         container.scrollTo({
           left:
             activeThumb.offsetLeft -
@@ -102,7 +105,7 @@ const Hero: React.FC = () => {
 
   return (
     <section className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 overflow-hidden">
-      {/* Text & Thumbnails */}
+      {/* 🧩 Text & Thumbnails */}
       <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
           Paraplug
@@ -115,15 +118,17 @@ const Hero: React.FC = () => {
           Shop Now
         </button>
 
-        {/* Thumbnails */}
+        {/* 🖼 Thumbnail Scroll */}
         <div
           ref={scrollRef}
-          className="flex gap-5 py-3 w-[600px] mt-10 sean overflow-x-scroll px-[20px]"
+          className="flex gap-5 py-3 w-[600px] mt-10 overflow-x-scroll sean px-[20px] scrollbar-hide"
         >
           {images.map((img, index) => (
             <button
               key={img.id}
-              ref={(el) => (thumbRefs.current[index] = el)}
+              ref={(el) => {
+                thumbRefs.current[index] = el;
+              }}
               onClick={() => setCurrent(index)}
               className={`relative min-w-20 h-20 rounded-xl border-2 transition-all ${
                 index === current
@@ -142,7 +147,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Image */}
+      {/* 🏆 Hero Image */}
       <div className="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
         <AnimatePresence mode="wait">
           <motion.div
