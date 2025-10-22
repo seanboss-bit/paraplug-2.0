@@ -1,17 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  CheckCircleIcon,
-  ArrowRightIcon,
-} from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { CheckCircleIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import { useLoading } from "@/providers/LoadingProvider";
 import { verifyPayment } from "@/services/cart";
 
-export default function SuccessPage() {
+function SuccessPage() {
   const { LoadingLink } = useLoading();
   const searchParams = useSearchParams();
   const reference = searchParams.get("reference");
@@ -37,7 +34,7 @@ export default function SuccessPage() {
         } else {
           toast.warning("Payment not verified yet. Please check again.");
         }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         toast.error("Error verifying payment");
         console.error(err);
@@ -156,5 +153,13 @@ export default function SuccessPage() {
         />
       </motion.div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<>loading...</>}>
+      <SuccessPage />
+    </Suspense>
   );
 }
