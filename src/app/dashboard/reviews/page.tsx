@@ -79,7 +79,7 @@ export default function ReviewsPage() {
       setSubmitting(true);
 
       if (reviewType === "product" && selectedProduct) {
-        await submitProductReview(selectedProduct._id, rating, review);
+        await submitProductReview(selectedProduct.id as string, rating, review);
       } else {
         await submitWebsiteReview(rating, review);
       }
@@ -94,6 +94,7 @@ export default function ReviewsPage() {
       setReview("");
       setRating(0);
       setSelectedProduct(null);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error("Something went wrong while submitting your review.");

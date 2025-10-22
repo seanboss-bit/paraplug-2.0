@@ -10,7 +10,7 @@ import {
 import { StarIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useLoading } from "@/providers/LoadingProvider";
-import { Product } from "@/interface/interface";
+import { Product, ProductReview } from "@/interface/interface";
 import { toast } from "sonner";
 import { getSingleProduct, likeProduct, postAReview } from "@/services/store";
 import { useUserStore } from "@/store/userStore";
@@ -73,6 +73,7 @@ const Page = () => {
       setRating(0);
       setReview("");
       await fetchProduct(); // refresh reviews
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.response?.data?.error || "Failed to post review");
     } finally {
@@ -100,6 +101,7 @@ const Page = () => {
         toast.success(res.data?.message);
         fetchProduct();
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.message || "Failed to update favourite");
     } finally {
@@ -129,6 +131,7 @@ const Page = () => {
       );
       setCart(res?.cart);
       toast.success("Item added to cart successfully!");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(
         error?.response?.data?.error || error.message || "Failed to add to cart"
@@ -327,7 +330,7 @@ const Page = () => {
             )}
 
             <div className="space-y-6 grid grid-cols-1 md:grid-cols-3">
-              {product.review?.map((r: any, i: number) => (
+              {product.review?.map((r: ProductReview, i: number) => (
                 <div
                   key={i}
                   className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"

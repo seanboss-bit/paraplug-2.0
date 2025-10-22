@@ -13,7 +13,15 @@ export interface User {
   referralCode: string;
   referredUsers: string[]; // array of user IDs
   favourites: string[]; // array of product IDs
-  reviews: any[]; // you can replace `any` with a proper `Review` interface if needed
+  reviews: UserReview[]; // you can replace `any` with a proper `Review` interface if needed
+}
+
+export interface UserReview {
+  comment: string;
+  createdAt: string;
+  productId: string;
+  rating: number;
+  _id: string;
 }
 
 export interface LoginResponse extends User {
@@ -22,14 +30,14 @@ export interface LoginResponse extends User {
 }
 
 export interface Product {
-  _id?: string;
+  _id?: string | "";
   name: string;
   image: string;
   category: string;
   price: number;
   slashPrice: number | null;
   description: string;
-  review?: [];
+  review?: ProductReview[];
   sizes: string[];
   freeShipping: boolean;
   extraImg: string[];
@@ -39,6 +47,14 @@ export interface Product {
   isFavourite?: boolean;
   stockxLink?: string;
   __v?: number;
+}
+
+export interface ProductReview {
+  userId: string;
+  username: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
 }
 
 export interface InstagramPost {

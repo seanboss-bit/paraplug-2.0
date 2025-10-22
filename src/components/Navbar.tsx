@@ -46,6 +46,7 @@ const Navbar = () => {
     try {
       const res = await getUserCart();
       setCart(res?.cart);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error?.response?.data?.error);
     }

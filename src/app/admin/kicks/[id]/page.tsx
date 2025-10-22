@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { getSingleProduct } from "@/services/store";
 import { deleteProduct, updateProduct } from "@/services/admin";
-
 interface Shoe {
   _id?: string;
   name?: string;
@@ -59,6 +58,7 @@ const SingleShoe = () => {
     setLoading(true);
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const updatedData: any = { ...updatedKicks };
 
       // ✅ Only include sizes if user entered something

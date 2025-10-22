@@ -20,7 +20,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [orders, setOrders] = useState<Order>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const id =
     typeof window !== "undefined" ? localStorage.getItem("user_id") : null;
@@ -41,7 +41,8 @@ export default function DashboardPage() {
       const res = await getUserOrders(id as string);
       setOrders(res?.order);
       console.log(res);
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       toast.error(error?.response?.data?.error);
     } finally {
       setLoading(false);
@@ -62,6 +63,7 @@ export default function DashboardPage() {
         const res = await getUserDetails(id);
         console.log(res);
         setUser(res?.data?.user || null);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         setError(err || "Failed to fetch user details");
       } finally {
@@ -208,7 +210,7 @@ export default function DashboardPage() {
           My Reviews
         </h3>
 
-        {user?.reviews?.length > 0 ? (
+        {(user?.reviews ?? []).length > 0 ? (
           <div className="space-y-4">
             {user?.reviews.map((review, i) => (
               <div
@@ -245,7 +247,9 @@ export default function DashboardPage() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">You haven't written any reviews yet.</p>
+          <p className="text-gray-500">
+            You haven&apos;t written any reviews yet.
+          </p>
         )}
       </section>
 

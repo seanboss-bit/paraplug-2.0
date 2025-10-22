@@ -41,6 +41,7 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
       setLoadingItem(id);
       await handleUpdateCartQuantity(id, type);
       refreshCart();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error("Failed to update quantity");
     } finally {

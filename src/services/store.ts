@@ -1,6 +1,6 @@
 import api from "../request";
 
-interface ProductQuery {
+export interface ProductQuery {
   search?: string;
   sort?: "newest" | "asc" | "desc";
   category?: string;

@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import ShoeCard from "@/components/ShoeCard";
-import { getProducts } from "@/services/store";
+import { getProducts, ProductQuery } from "@/services/store";
 import { toast } from "sonner";
 import { Product } from "@/interface/interface";
 
@@ -42,7 +42,7 @@ const Page = () => {
           category: category !== "all" ? category : undefined,
           skip: currentSkip,
           limit: LIMIT,
-        } as any);
+        } as ProductQuery);
 
         const fetched = res?.products || [];
         setHasMore(fetched.length === LIMIT);

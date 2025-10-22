@@ -57,6 +57,7 @@ export default function CheckoutPopup({
         } else {
           toast.error("Payment initialization failed");
         }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.error(error);
         toast.error("Failed to initialize payment");

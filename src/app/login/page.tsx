@@ -8,7 +8,7 @@ import {
   EyeSlashIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
-import { useState, MouseEvent, useEffect, ReactInstance } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import { useLoading } from "@/providers/LoadingProvider";
 import { loginUser } from "@/services/auth";
 import { toast } from "sonner";
@@ -46,6 +46,7 @@ const Page = () => {
         startLoading();
         router.push("/store");
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("❌Login error:", error);
       toast.error(error?.response?.data?.error || "Something went wrong");

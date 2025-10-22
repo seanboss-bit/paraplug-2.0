@@ -19,6 +19,7 @@ export default function FavouritesPage() {
       // assuming the API returns something like: { message, favourites: [] }
       setFavourites(res?.favourites || []);
       console.log(res);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err?.message || "Failed to load favourites");
     } finally {

@@ -37,6 +37,7 @@ export default function SuccessPage() {
         } else {
           toast.warning("Payment not verified yet. Please check again.");
         }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         toast.error("Error verifying payment");
         console.error(err);

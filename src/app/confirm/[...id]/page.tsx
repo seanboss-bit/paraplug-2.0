@@ -34,6 +34,7 @@ export default function ConfirmPage() {
         setTimeout(() => {
           router.push("/login");
         }, 2000);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error("Verification failed:", err);
         toast.error(

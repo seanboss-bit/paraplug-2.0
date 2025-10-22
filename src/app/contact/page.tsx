@@ -1,45 +1,60 @@
 "use client";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { motion, Variants } from "framer-motion";
 import { sendMessage } from "@/services/insta";
 import { toast } from "sonner";
 
-const Page = () => {
-  const [form, setForm] = useState({
+// ✅ Define form data type
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+// ✅ Define API response type (optional, adjust to match your backend)
+interface ApiResponse {
+  status: number;
+  data?: {
+    message?: string;
+  };
+}
+
+const Page: React.FC = () => {
+  const [form, setForm] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const container = {
+  const container: Variants = {
     show: {
       transition: { staggerChildren: 0.25 },
     },
   };
 
-  const item = {
+  const item: Variants = {
     hidden: { y: 40, opacity: 0 },
     show: { y: 0, opacity: 1, transition: { ease: "easeOut", duration: 0.6 } },
   };
 
   // 🔹 Handle input change
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   // 🔹 Handle form submit
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validate
     if (!form.name || !form.email || !form.subject || !form.message) {
       toast.warning("All fields are required");
       return;
@@ -47,16 +62,15 @@ const Page = () => {
 
     try {
       setLoading(true);
-      const res = await sendMessage(form);
+      const res: ApiResponse = await sendMessage(form);
 
       if (res.status === 200 || res.status === 201) {
         toast.success(res.data?.message || "Message sent successfully");
-        setForm({ name: "", email: "", subject: "", message: "" }); // Reset form
-      } else {
-        toast.error(res?.response?.data?.error || "Failed to send message");
+        setForm({ name: "", email: "", subject: "", message: "" });
       }
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred");
+    } catch (error) {
+      const err = error as Error;
+      toast.error(err.message || "An error occurred");
     } finally {
       setLoading(false);
     }

@@ -35,6 +35,7 @@ const ShoeCard = ({ product, refresh, isFav = true }: ShoeCardProp) => {
         toast.success(res.data?.message);
         refresh && refresh(true);
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.message || "Failed to update favourite");
     } finally {

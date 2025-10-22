@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { completeOrder, deleteOrder, getAllOrders } from "@/services/admin";
-import { Order } from "@/interface/interface";
+import { Order, OrderItem } from "@/interface/interface";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -165,7 +165,7 @@ const OrdersPage = () => {
 
               {/* Order Images */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 px-5 pb-4">
-                {order.orders.slice(0, 4).map((item: any) => (
+                {order.orders.slice(0, 4).map((item: OrderItem) => (
                   <div
                     key={item._id}
                     className="relative w-full h-32 rounded-lg overflow-hidden bg-gray-100"
@@ -221,7 +221,7 @@ const OrdersPage = () => {
                           Products
                         </h3>
                         <div className="space-y-2">
-                          {order.orders.map((item: any) => (
+                          {order.orders.map((item: OrderItem) => (
                             <div
                               key={item._id}
                               className="flex justify-between items-center bg-white p-3 rounded-lg border border-gray-100 shadow-sm hover:shadow transition"
