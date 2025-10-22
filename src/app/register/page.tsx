@@ -9,7 +9,7 @@ import {
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { useLoading } from "@/providers/LoadingProvider";
@@ -279,4 +279,10 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default function Page() {
+  return (
+    <Suspense fallback={<>loading..</>}>
+      <Register />
+    </Suspense>
+  );
+}
