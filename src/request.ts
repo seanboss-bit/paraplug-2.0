@@ -1,23 +1,38 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+  AxiosError,
+} from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL: string = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
-// 🌍 Single Axios instance
+// ✅ Create a single axios instance
 const api: AxiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-// 🧠 Interceptor — attach token only if it exists
+// ✅ Add request interceptor — fully typed & SSR-safe
 api.interceptors.request.use(
-  (config: AxiosRequestConfig): AxiosRequestConfig => {
-    const token =
-      JSON.parse(localStorage?.getItem("user"))?.state?.user?.accessToken || "";
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`; // standard header name
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    if (typeof window !== "undefined") {
+      try {
+        const userData = localStorage.getItem("user");
+        if (userData) {
+          const parsedUser = JSON.parse(userData);
+          const token: string | undefined =
+            parsedUser?.state?.user?.accessToken ?? undefined;
+
+          if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+          }
+        }
+      } catch (error) {
+        console.warn("⚠️ Failed to parse user token:", error);
+      }
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error)
 );
 
 export default api;
