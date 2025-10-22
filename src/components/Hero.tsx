@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useLoading } from "@/providers/LoadingProvider";
 
 interface HeroImage {
   id: number;
@@ -68,6 +69,7 @@ const Hero: React.FC = () => {
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const { LoadingLink } = useLoading();
 
   // 🌀 Auto-scroll every 4 seconds
   useEffect(() => {
@@ -114,9 +116,12 @@ const Hero: React.FC = () => {
           Your Store For All Exclusive Nike And Jordan Sneakers — It’s all about
           new arrivals!!!
         </p>
-        <button className="bg-black hover:bg-rose-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
+        <LoadingLink
+          href="/store"
+          className="bg-black hover:bg-rose-600 text-white font-semibold py-3 px-8 rounded-full transition-all"
+        >
           Shop Now
-        </button>
+        </LoadingLink>
 
         {/* 🖼 Thumbnail Scroll */}
         <div
