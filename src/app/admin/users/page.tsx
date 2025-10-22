@@ -57,7 +57,7 @@ export default function AdminUsersPage() {
       } else {
         setUsers((prev) => {
           const unique = new Map(prev.map((u) => [u._id, u]));
-          newUsers.forEach((u) => unique.set(u._id, u));
+          newUsers.forEach((u:User) => unique.set(u._id, u));
           return Array.from(unique.values());
         });
       }
@@ -106,7 +106,7 @@ export default function AdminUsersPage() {
       toast.success(makeAdmin ? "User promoted ✅" : "Admin role removed 🚫");
 
       setUsers((prev) =>
-        prev.map((u) => (u._id === id ? { ...u, isAdmin: makeAdmin } : u))
+        prev.map((u: User) => (u._id === id ? { ...u, isAdmin: makeAdmin } : u))
       );
     } catch (error) {
       // ❌ Revert change if failed
