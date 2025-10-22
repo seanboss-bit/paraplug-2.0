@@ -30,7 +30,7 @@ export interface LoginResponse extends User {
 }
 
 export interface Product {
-  _id?: string | "";
+  _id: string | "";
   name: string;
   image: string;
   category: string;
