@@ -13,6 +13,7 @@ import {
 import { adminify, getAllUsers } from "@/services/admin";
 import Image from "next/image";
 
+// ✅ User type
 export interface User {
   referredUsers: string[];
   favourites: string[];
@@ -31,12 +32,18 @@ export interface User {
   reviews: string[];
 }
 
+// ✅ Response type for getAllUsers
+interface GetUsersResponse {
+  users: User[];
+  total: number;
+}
+
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [expandedUser, setExpandedUser] = useState<string | null>(null);
   const [loadingUser, setLoadingUser] = useState<string | null>(null);
   const observerRef = useRef<HTMLDivElement | null>(null);
@@ -44,26 +51,26 @@ export default function AdminUsersPage() {
   const LIMIT = 20;
 
   // ✅ Fetch paginated users
-  const getUsers = useCallback(async (pageNum: number) => {
+  const getUsers = useCallback(async (pageNum: number): Promise<void> => {
     try {
       if (pageNum === 1) setLoading(true);
       else setLoadingMore(true);
 
-      const res = await getAllUsers(pageNum, LIMIT);
-      const newUsers = res?.users || [];
+      const res = (await getAllUsers(pageNum, LIMIT)) as GetUsersResponse;
+      const newUsers: User[] = res?.users || [];
 
       if (pageNum === 1) {
         setUsers(newUsers);
       } else {
         setUsers((prev) => {
           const unique = new Map(prev.map((u) => [u._id, u]));
-          newUsers.forEach((u:User) => unique.set(u._id, u));
+          newUsers.forEach((u: User) => unique.set(u._id, u));
           return Array.from(unique.values());
         });
       }
 
       setHasMore(newUsers.length >= LIMIT);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Failed to fetch users:", error);
       toast.error("Failed to fetch users");
     } finally {
@@ -75,7 +82,7 @@ export default function AdminUsersPage() {
   // ✅ Trigger new page fetch on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries: IntersectionObserverEntry[]) => {
         const first = entries[0];
         if (first.isIntersecting && hasMore && !loadingMore && !loading) {
           setPage((prev) => prev + 1);
@@ -86,20 +93,23 @@ export default function AdminUsersPage() {
 
     const current = observerRef.current;
     if (current) observer.observe(current);
-    return () => current && observer.unobserve(current);
+    return () => {
+      if (current) observer.unobserve(current);
+    };
   }, [hasMore, loadingMore, loading]);
 
   // ✅ Load users when page changes
   useEffect(() => {
-    getUsers(page);
+    void getUsers(page);
   }, [page, getUsers]);
 
   // ✅ Optimistic Admin Toggle (instant visual update)
-  const handleAdminify = async (makeAdmin: boolean, id: string) => {
+  const handleAdminify = async (
+    makeAdmin: boolean,
+    id: string
+  ): Promise<void> => {
     try {
       setLoadingUser(id);
-
-      // ⚡ Optimistic UI update
 
       await adminify(id, makeAdmin);
 
@@ -108,10 +118,11 @@ export default function AdminUsersPage() {
       setUsers((prev) =>
         prev.map((u: User) => (u._id === id ? { ...u, isAdmin: makeAdmin } : u))
       );
-    } catch (error) {
-      // ❌ Revert change if failed
+    } catch (error: unknown) {
       setUsers((prev) =>
-        prev.map((u) => (u._id === id ? { ...u, isAdmin: !makeAdmin } : u))
+        prev.map((u: User) =>
+          u._id === id ? { ...u, isAdmin: !makeAdmin } : u
+        )
       );
       toast.error("Something went wrong");
     } finally {
@@ -134,7 +145,7 @@ export default function AdminUsersPage() {
       ) : (
         <>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {users.map((user) => {
+            {users.map((user: User) => {
               const isExpanded = expandedUser === user._id;
               return (
                 <motion.div
@@ -226,7 +237,7 @@ export default function AdminUsersPage() {
                           <button
                             disabled={loadingUser === user._id}
                             onClick={() =>
-                              handleAdminify(!user.isAdmin, user._id)
+                              void handleAdminify(!user.isAdmin, user._id)
                             }
                             className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-semibold transition ${
                               user.isAdmin
@@ -282,7 +293,7 @@ export default function AdminUsersPage() {
 function LoadingSkeleton() {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
-      {Array.from({ length: 6 }).map((_, i) => (
+      {Array.from({ length: 6 }).map((_, i: number) => (
         <div
           key={i}
           className="bg-white shadow-md rounded-2xl border border-gray-100 p-4"
