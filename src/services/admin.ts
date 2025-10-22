@@ -1,6 +1,20 @@
 import { Product } from "@/interface/interface";
 import api from "../request";
 
+interface UploadProduct {
+  name: string;
+  image: string;
+  category: string;
+  price: number;
+  slashPrice: number;
+  description: string;
+  sizes: string[];
+  freeShipping: boolean;
+  extraImg: string[];
+  inStock: boolean;
+  stockxLink: string;
+}
+
 export const getEmails = async () => {
   try {
     const res = await api.get("/email");
@@ -79,7 +93,7 @@ export const deleteOrder = async (id: string) => {
   }
 };
 
-export const uploadProduct = async (params: Product) => {
+export const uploadProduct = async (params: UploadProduct) => {
   try {
     const res = await api.post(`/product`, params);
     return res.data;
@@ -98,7 +112,7 @@ export const deleteProduct = async (id: string) => {
     throw error;
   }
 };
-export const updateProduct = async (id: string, params:Product) => {
+export const updateProduct = async (id: string, params: Product) => {
   try {
     const res = await api.put(`/product/${id}`, params);
     return res.data;
