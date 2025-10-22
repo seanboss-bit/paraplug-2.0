@@ -41,11 +41,11 @@ const Showcase: React.FC = () => {
   const { LoadingLink } = useLoading();
 
   return (
-    <section className="w-full flex flex-col items-center justify-center mb-[50px] bg-white px-6">
+    <section className="w-full flex flex-col items-center justify-center mb-[50px] bg-white dark:bg-[#0f0f0f] p-6 transition-colors duration-500">
       <motion.div
         className="flex flex-col lg:flex-row w-full max-w-7xl h-[800px] md:h-[600px] rounded-2xl overflow-hidden"
         layout
-        transition={{ layout: { duration: 0.6, ease: "easeInOut" } }}
+        transition={{ layout: { duration: 0.6, ease: 'easeInOut' } }}
       >
         {showcaseItems.map((item) => {
           const isActive = active === item.id;
@@ -54,11 +54,11 @@ const Showcase: React.FC = () => {
               key={item.id}
               layout
               onClick={() => setActive(item.id)}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
               className={`relative flex flex-col justify-end cursor-pointer overflow-hidden transition-all ${
                 isActive
-                  ? "flex-[3] lg:flex-[3]"
-                  : "flex-[1] lg:flex-[1] brightness-75 hover:brightness-100"
+                  ? 'flex-[3] lg:flex-[3]'
+                  : 'flex-[1] lg:flex-[1] brightness-75 hover:brightness-100'
               }`}
             >
               {/* Background Image */}
@@ -69,15 +69,15 @@ const Showcase: React.FC = () => {
               />
 
               {/* Dark overlay for better text contrast */}
-              <div className="absolute inset-0 bg-black/40"></div>
+              <div className="absolute inset-0 bg-black/40 dark:bg-black/50"></div>
 
               {/* Content */}
               <motion.div
                 layout
                 className={`relative z-10 text-white p-6 transition-all duration-700 ${
                   isActive
-                    ? "backdrop-blur-sm bg-black/40 rounded-t-2xl"
-                    : "bg-gradient-to-t from-black/60 to-transparent"
+                    ? 'backdrop-blur-sm bg-black/40 dark:bg-black/60 rounded-t-2xl'
+                    : 'bg-gradient-to-t from-black/60 to-transparent dark:from-black/70'
                 }`}
               >
                 <motion.h3
@@ -96,12 +96,12 @@ const Showcase: React.FC = () => {
                       exit={{ opacity: 0, y: 20 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <p className="text-sm leading-relaxed mb-4">
+                      <p className="text-sm leading-relaxed mb-4 text-gray-100 dark:text-gray-200">
                         {item.description}
                       </p>
                       <LoadingLink
                         href={item.link}
-                        className="inline-block bg-white text-black font-semibold px-6 py-2 rounded-full hover:bg-rose-600 hover:text-white transition-all"
+                        className="inline-block bg-white text-black font-semibold px-6 py-2 rounded-full hover:bg-rose-600 hover:text-white transition-all dark:bg-gray-100 dark:text-black dark:hover:bg-rose-600 dark:hover:text-white"
                       >
                         Shop Now
                       </LoadingLink>

@@ -2,10 +2,7 @@
 import { Cart, CartItem } from "@/interface/interface";
 import { useLoading } from "@/providers/LoadingProvider";
 import { numberWithCommas } from "@/utils/functions";
-import {
-  ArrowLeftIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -41,7 +38,7 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
       setLoadingItem(id);
       await handleUpdateCartQuantity(id, type);
       refreshCart();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error("Failed to update quantity");
     } finally {
@@ -91,7 +88,7 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
             </h2>
             <button
               onClick={clearCart}
-              className="text-sm text-red-500 flex items-center gap-2 hover:text-red-600"
+              className="text-sm text-red-500 dark:text-red-400 flex items-center gap-2 hover:text-red-600 dark:hover:text-red-500"
             >
               <TrashIcon className="size-5" /> Clear Cart
             </button>
@@ -131,7 +128,7 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
                     onClick={() =>
                       updateQuantity(item._id, "dec", item?.cartQuantity)
                     }
-                    className="border rounded-lg px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                    className="border border-gray-300 dark:border-gray-600 rounded-lg px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
                   >
                     -
                   </button>
@@ -143,14 +140,14 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
                     onClick={() =>
                       updateQuantity(item._id, "inc", item?.cartQuantity)
                     }
-                    className="border rounded-lg px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                    className="border border-gray-300 dark:border-gray-600 rounded-lg px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
                   >
                     +
                   </button>
 
                   <TrashIcon
                     onClick={() => removeItem(item._id)}
-                    className="size-6 text-red-500 hover:text-red-600 cursor-pointer ml-3"
+                    className="size-6 text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500 cursor-pointer ml-3"
                   />
                 </div>
               </div>
@@ -189,7 +186,7 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
 
           <button
             onClick={() => setShowCheckout(true)}
-            className="mt-6 w-full bg-gray-900 text-white py-3 rounded-xl hover:bg-gray-700 transition font-medium"
+            className="mt-6 w-full bg-gray-900 dark:bg-gray-700 text-white py-3 rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition font-medium"
           >
             Checkout
           </button>

@@ -19,7 +19,7 @@ export default function FavouritesPage() {
       // assuming the API returns something like: { message, favourites: [] }
       setFavourites(res?.favourites || []);
       console.log(res);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err?.message || "Failed to load favourites");
     } finally {
@@ -59,7 +59,7 @@ export default function FavouritesPage() {
 
       {/* Empty State */}
       {!loading && !error && favourites.length === 0 && (
-        <p className="text-gray-500 text-center py-8">
+        <p className="text-gray-500 dark:text-gray-300 text-center py-8">
           You have no favourites yet.
         </p>
       )}

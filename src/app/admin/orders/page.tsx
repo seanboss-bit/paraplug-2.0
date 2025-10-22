@@ -98,22 +98,22 @@ const OrdersPage = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+    <div className="dark:bg-gray-900 dark:text-gray-100">
+      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100">
         All Orders
       </h1>
 
       {/* ✅ Feedback Message */}
       {message && (
         <div className="text-center mb-4">
-          <p className="text-sm font-medium text-gray-700 bg-gray-100 px-4 py-2 rounded-lg inline-block">
+          <p className="text-sm font-medium text-gray-700 bg-gray-100 px-4 py-2 rounded-lg inline-block dark:bg-gray-800 dark:text-gray-200">
             {message}
           </p>
         </div>
       )}
 
       {loading ? (
-        <div className="flex justify-center items-center h-40 text-gray-500 animate-pulse">
+        <div className="flex justify-center items-center h-40 text-gray-500 animate-pulse dark:text-gray-300">
           Loading orders...
         </div>
       ) : orders.length > 0 ? (
@@ -123,25 +123,25 @@ const OrdersPage = () => {
               key={order._id}
               layout
               ref={expandedOrder === order._id ? expandedRef : null}
-              className="bg-white rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 h-fit relative"
+              className="bg-white rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 h-fit relative dark:bg-gray-800 dark:border-gray-700"
             >
               {/* Order Header */}
               <div
-                className="flex flex-col md:flex-row justify-between items-start p-5 cursor-pointer hover:bg-gray-50 transition-all"
+                className="flex flex-col md:flex-row justify-between items-start p-5 cursor-pointer hover:bg-gray-50 transition-all dark:hover:bg-gray-700"
                 onClick={() => toggleExpand(order._id)} // ✅ fixed toggle handler
               >
                 <div>
-                  <h2 className="font-semibold text-lg text-gray-800 capitalize line-clamp-1">
+                  <h2 className="font-semibold text-lg text-gray-800 capitalize line-clamp-1 dark:text-gray-100">
                     Order from {order.name} {order.lname}
                   </h2>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-gray-500 mt-1 dark:text-gray-400">
                     {new Date(order.createdAt).toLocaleDateString("en-GB", {
                       day: "2-digit",
                       month: "long",
                       year: "numeric",
                     })}{" "}
                     —{" "}
-                    <span className="font-medium text-green-600 capitalize">
+                    <span className="font-medium text-green-600 capitalize dark:text-green-400">
                       {order.status}
                     </span>
                   </p>
@@ -151,13 +151,13 @@ const OrdersPage = () => {
                   <span
                     className={`px-3 py-1 text-xs font-medium rounded-full ${
                       order.completed
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
+                        ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
+                        : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
                     }`}
                   >
                     {order.completed ? "Completed" : "Pending"}
                   </span>
-                  <p className="font-bold text-gray-800 text-lg">
+                  <p className="font-bold text-gray-800 text-lg dark:text-gray-100">
                     ₦{order.total.toLocaleString()}
                   </p>
                 </div>
@@ -168,7 +168,7 @@ const OrdersPage = () => {
                 {order.orders.slice(0, 4).map((item: OrderItem) => (
                   <div
                     key={item._id}
-                    className="relative w-full h-32 rounded-lg overflow-hidden bg-gray-100"
+                    className="relative w-full h-32 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700"
                   >
                     <Image
                       src={item.image}
@@ -188,11 +188,11 @@ const OrdersPage = () => {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="border-t bg-gray-50"
+                    className="border-t bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
                   >
                     <div className="p-5 space-y-5">
                       {/* Order Info */}
-                      <div className="grid sm:grid-cols-2 gap-3 text-sm text-gray-700">
+                      <div className="grid sm:grid-cols-2 gap-3 text-sm text-gray-700 dark:text-gray-300">
                         <p>
                           <span className="font-semibold">Email:</span>{" "}
                           {order.email}
@@ -217,24 +217,24 @@ const OrdersPage = () => {
 
                       {/* Product List */}
                       <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">
+                        <h3 className="font-semibold text-gray-800 mb-2 dark:text-gray-100">
                           Products
                         </h3>
                         <div className="space-y-2">
                           {order.orders.map((item: OrderItem) => (
                             <div
                               key={item._id}
-                              className="flex justify-between items-center bg-white p-3 rounded-lg border border-gray-100 shadow-sm hover:shadow transition"
+                              className="flex justify-between items-center bg-white p-3 rounded-lg border border-gray-100 shadow-sm hover:shadow transition dark:bg-gray-700 dark:border-gray-600"
                             >
                               <div>
-                                <p className="font-medium text-gray-800 capitalize">
+                                <p className="font-medium text-gray-800 capitalize dark:text-gray-100">
                                   {item.name}
                                 </p>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-gray-500 dark:text-gray-400">
                                   Size: {item.size} | Qty: {item.cartQuantity}
                                 </p>
                               </div>
-                              <p className="font-semibold text-gray-700">
+                              <p className="font-semibold text-gray-700 dark:text-gray-200">
                                 ₦{item.price.toLocaleString()}
                               </p>
                             </div>
@@ -287,7 +287,9 @@ const OrdersPage = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500 text-lg">No orders found.</p>
+        <p className="text-center text-gray-500 text-lg dark:text-gray-400">
+          No orders found.
+        </p>
       )}
     </div>
   );

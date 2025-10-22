@@ -34,7 +34,7 @@ export default function ConfirmPage() {
         setTimeout(() => {
           router.push("/login");
         }, 2000);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error("Verification failed:", err);
         toast.error(
@@ -48,13 +48,13 @@ export default function ConfirmPage() {
   }, [userId, token, router]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-white text-center px-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-center px-6 transition-colors duration-300">
       {/* Animated Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 120, damping: 10 }}
-        className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full border border-gray-100"
+        className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 max-w-md w-full border border-gray-100 dark:border-gray-700"
       >
         {status === "loading" && (
           <>
@@ -62,12 +62,14 @@ export default function ConfirmPage() {
               initial={{ rotate: 0 }}
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-              className="mx-auto mb-6 h-12 w-12 border-4 border-gray-300 border-t-black rounded-full"
+              className="mx-auto mb-6 h-12 w-12 border-4 border-gray-300 dark:border-gray-600 border-t-black dark:border-t-white rounded-full"
             />
-            <h1 className="text-xl font-semibold text-gray-800">
+            <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
               Verifying your account...
             </h1>
-            <p className="text-gray-500 mt-2 text-sm">Please wait a moment</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
+              Please wait a moment
+            </p>
           </>
         )}
 
@@ -79,10 +81,10 @@ export default function ConfirmPage() {
             className="flex flex-col items-center"
           >
             <CheckCircleIcon className="h-16 w-16 text-green-500 mb-4" />
-            <h1 className="text-2xl font-semibold text-gray-800">
+            <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
               Account Verified!
             </h1>
-            <p className="text-gray-500 mt-2 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
               Redirecting you to the login page...
             </p>
           </motion.div>
@@ -95,15 +97,15 @@ export default function ConfirmPage() {
             className="flex flex-col items-center"
           >
             <ExclamationTriangleIcon className="h-16 w-16 text-red-500 mb-4" />
-            <h1 className="text-2xl font-semibold text-gray-800">
+            <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
               Invalid Link
             </h1>
-            <p className="text-gray-500 mt-2 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
               The confirmation link is invalid or expired.
             </p>
             <LoadingLink
               href={"/register"}
-              className="mt-6 bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-lg"
+              className="mt-6 bg-black dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 text-white px-6 py-2 rounded-lg transition-colors duration-300"
             >
               Go to Register
             </LoadingLink>
@@ -128,7 +130,7 @@ export default function ConfirmPage() {
             duration: 6,
             ease: "easeInOut",
           }}
-          className="absolute top-1/3 left-1/2 w-72 h-72 bg-black/10 rounded-full blur-3xl"
+          className="absolute top-1/3 left-1/2 w-72 h-72 bg-black/10 dark:bg-white/10 rounded-full blur-3xl"
         />
       </motion.div>
     </div>

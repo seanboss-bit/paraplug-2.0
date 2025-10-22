@@ -188,7 +188,9 @@ const Page = () => {
                     className="object-contain w-full md:w-[500px] md:h-[500px]"
                   />
                 ) : (
-                  <div className="text-gray-400">No Image</div>
+                  <div className="text-gray-400 dark:text-gray-500">
+                    No Image
+                  </div>
                 )}
               </div>
 
@@ -206,7 +208,7 @@ const Page = () => {
                         className={`cursor-pointer object-contain rounded-lg border-2 transition-all ${
                           mainImage === img
                             ? "border-rose-500"
-                            : "border-transparent hover:border-gray-400"
+                            : "border-transparent hover:border-gray-400 dark:hover:border-gray-500"
                         }`}
                       />
                     )
@@ -217,7 +219,7 @@ const Page = () => {
             {/* DETAILS */}
             <div className="flex flex-col justify-between">
               <div>
-                <h3 className="text-sm text-gray-500 uppercase tracking-wider mb-1">
+                <h3 className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
                   {product.category}
                 </h3>
                 <h2 className="text-3xl capitalize font-bold text-gray-900 dark:text-gray-100 mb-3">
@@ -229,14 +231,14 @@ const Page = () => {
                     ₦{numberWithCommas(product.price)}
                   </p>
                   {product.slashPrice && (
-                    <p className="text-gray-400 line-through">
+                    <p className="text-gray-400 dark:text-gray-500 line-through">
                       ₦{numberWithCommas(product.slashPrice)}
                     </p>
                   )}
                 </div>
 
                 {product.freeShipping && (
-                  <p className="text-sm text-green-500 font-medium mb-4">
+                  <p className="text-sm text-green-500 dark:text-green-400 font-medium mb-4">
                     + Free Shipping
                   </p>
                 )}
@@ -258,8 +260,8 @@ const Page = () => {
                           onClick={() => setSelectedSize(size)}
                           className={`w-12 h-12 flex items-center justify-center rounded-full border-2 transition text-gray-900 dark:text-gray-100 ${
                             selectedSize === size
-                              ? "border-rose-500 bg-rose-50"
-                              : "border-gray-400 hover:border-rose-300"
+                              ? "border-rose-500 bg-rose-50 dark:bg-rose-900/20"
+                              : "border-gray-400 dark:border-gray-500 hover:border-rose-300 dark:hover:border-rose-400"
                           }`}
                         >
                           {size}
@@ -290,8 +292,8 @@ const Page = () => {
                     onClick={handleLike}
                     className={`h-[40px] w-[40px] rounded-full flex items-center justify-center transition cursor-pointer ${
                       product?.isFavourite
-                        ? "bg-rose-100 text-rose-500"
-                        : "bg-gray-100 hover:bg-gray-200"
+                        ? "bg-rose-100 dark:bg-rose-900/30 text-rose-500"
+                        : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
                     }`}
                   >
                     {favLoading ? (
@@ -317,14 +319,14 @@ const Page = () => {
               </h2>
               <button
                 onClick={() => setShowReviewModal(true)}
-                className="bg-gray-900 hover:bg-gray-700 text-white px-5 py-3 rounded-xl transition"
+                className="bg-gray-900 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 text-white px-5 py-3 rounded-xl transition"
               >
                 Leave a Review
               </button>
             </div>
 
             {(!product.review || product.review.length === 0) && (
-              <p className="text-gray-500 text-center py-10">
+              <p className="text-gray-500 dark:text-gray-400 text-center py-10">
                 No reviews yet. Be the first to share your thoughts!
               </p>
             )}
@@ -349,7 +351,7 @@ const Page = () => {
                         ) : (
                           <StarOutline
                             key={idx}
-                            className="w-5 h-5 text-gray-300"
+                            className="w-5 h-5 text-gray-300 dark:text-gray-600"
                           />
                         )
                       )}
@@ -358,7 +360,7 @@ const Page = () => {
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-2 leading-relaxed">
                     {r.comment}
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-400 dark:text-gray-500">
                     {new Date(r.createdAt).toLocaleDateString()}
                   </p>
                 </div>
@@ -373,7 +375,7 @@ const Page = () => {
             <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl w-full max-w-md relative shadow-lg">
               <button
                 onClick={() => setShowReviewModal(false)}
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
               >
                 <XMarkIcon className="w-6 h-6" />
               </button>
@@ -397,7 +399,7 @@ const Page = () => {
                       onClick={() => setRating(value)}
                       onMouseEnter={() => setHoverRating(value)}
                       onMouseLeave={() => setHoverRating(0)}
-                      className="w-8 h-8 text-gray-400 cursor-pointer transition-transform hover:scale-110"
+                      className="w-8 h-8 text-gray-400 dark:text-gray-500 cursor-pointer transition-transform hover:scale-110"
                     />
                   )
                 )}
@@ -407,7 +409,7 @@ const Page = () => {
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
                 placeholder="Write your review..."
-                className="w-full h-32 p-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 mb-4 resize-none"
+                className="w-full h-32 p-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-600 mb-4 resize-none"
               ></textarea>
 
               <button
@@ -416,7 +418,7 @@ const Page = () => {
                 className={`${
                   reviewLoading
                     ? "bg-gray-500"
-                    : "bg-gray-900 hover:bg-gray-700"
+                    : "bg-gray-900 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600"
                 } text-white px-6 py-3 rounded-xl transition w-full font-medium flex items-center justify-center`}
               >
                 {reviewLoading ? (

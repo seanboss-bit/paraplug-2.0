@@ -93,29 +93,31 @@ const Hashtag = () => {
   }, []);
 
   return (
-    <div className="relative w-full bg-gray-50 md:p-6">
+    <div className="relative w-full bg-gray-50 dark:bg-gray-900 md:p-6">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="md:text-2xl text-xl font-bold text-gray-900">
+        <h2 className="md:text-2xl text-xl font-bold text-gray-900 dark:text-gray-100">
           Instagram Pictures
         </h2>
         <button
           onClick={() => setShowAdd(true)}
-          className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-rose-600 transition"
+          className="flex items-center gap-2 bg-black dark:bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-rose-600 dark:hover:bg-rose-700 transition"
         >
           <PlusIcon className="w-5 h-5" />
           Add New
         </button>
       </div>
 
-      {loading && <p className="text-center">Loading Posts....</p>}
+      {loading && (
+        <p className="text-center dark:text-gray-300">Loading Posts....</p>
+      )}
 
       {/* Posts Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {allPosts.map((post) => (
           <div
             key={post._id}
-            className="relative rounded-2xl overflow-hidden shadow-md group bg-white"
+            className="relative rounded-2xl overflow-hidden shadow-md group bg-white dark:bg-gray-800"
           >
             <Image
               src={post.image}
@@ -126,11 +128,11 @@ const Hashtag = () => {
             />
             <button
               onClick={() => deletePost(post._id)}
-              className="absolute top-3 right-3 bg-black/70 hover:bg-rose-600 p-2 rounded-full transition"
+              className="absolute top-3 right-3 bg-black/70 dark:bg-gray-700 hover:bg-rose-600 dark:hover:bg-rose-700 p-2 rounded-full transition"
             >
               <TrashIcon className="w-5 h-5 text-white" />
             </button>
-            <div className="p-3 text-sm text-gray-700 font-medium">
+            <div className="p-3 text-sm text-gray-700 dark:text-gray-300 font-medium">
               @{post.username}
             </div>
           </div>
@@ -139,16 +141,16 @@ const Hashtag = () => {
 
       {/* Add New Modal */}
       {showAdd && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl w-full max-w-md p-6 relative">
+        <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-md p-6 relative">
             <button
               onClick={() => setShowAdd(false)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-rose-600"
+              className="absolute top-3 right-3 text-gray-500 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-700"
             >
               <XMarkIcon className="w-6 h-6" />
             </button>
 
-            <h4 className="text-lg font-semibold mb-4 text-gray-800">
+            <h4 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
               Add New Post
             </h4>
 
@@ -162,7 +164,7 @@ const Hashtag = () => {
                       : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg"
                   }
                   alt="upload preview"
-                  className="w-40 h-40 object-cover rounded-lg border border-gray-200"
+                  className="w-40 h-40 object-cover rounded-lg border border-gray-200 dark:border-gray-600"
                   width={1100}
                   height={1100}
                 />
@@ -183,12 +185,12 @@ const Hashtag = () => {
                 placeholder="Enter username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                className="border rounded-lg px-3 py-2 text-gray-700 dark:text-gray-200 dark:bg-gray-900 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-rose-500"
               />
               <button
                 onClick={uploadPost}
                 disabled={sloading}
-                className="bg-black text-white px-4 py-2 rounded-lg hover:bg-rose-600 transition disabled:opacity-60"
+                className="bg-black dark:bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-rose-600 dark:hover:bg-rose-700 transition disabled:opacity-60"
               >
                 {sloading ? "Uploading..." : "Add Post"}
               </button>

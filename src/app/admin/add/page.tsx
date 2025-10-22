@@ -83,20 +83,20 @@ const AddKicksPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <div className=" mx-auto md:px-4">
         <motion.h2
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-semibold text-center mb-8 text-gray-800"
+          className="text-3xl font-semibold text-center mb-8 text-gray-800 dark:text-gray-100"
         >
           Add New Kicks 👟
         </motion.h2>
 
-        <div className="bg-white rounded-2xl shadow-md p-6 space-y-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 space-y-6 transition-colors duration-300">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Name*
               </label>
               <input
@@ -104,12 +104,12 @@ const AddKicksPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter Kicks Name"
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Price*
               </label>
               <input
@@ -121,12 +121,12 @@ const AddKicksPage = () => {
                   }
                 }}
                 placeholder="Enter Kicks Price"
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Slash Price
               </label>
               <input
@@ -138,18 +138,18 @@ const AddKicksPage = () => {
                   }
                 }}
                 placeholder="Enter Slash Price"
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Category*
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               >
                 <option value="">Select category</option>
                 <option value="nike">Nike</option>
@@ -159,7 +159,7 @@ const AddKicksPage = () => {
           </div>
 
           <div>
-            <label className="block text-gray-600 mb-2 font-medium">
+            <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
               Description*
             </label>
             <textarea
@@ -167,13 +167,13 @@ const AddKicksPage = () => {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter Kicks Description"
               rows={3}
-              className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
             />
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Main Image*
               </label>
               <input
@@ -182,12 +182,12 @@ const AddKicksPage = () => {
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setMainImg(e.target.files)
                 }
-                className="w-full border rounded-lg px-4 py-2 cursor-pointer"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 cursor-pointer transition-colors duration-300"
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Extra Images
               </label>
               <input
@@ -197,26 +197,26 @@ const AddKicksPage = () => {
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setExtraImg(e.target.files)
                 }
-                className="w-full border rounded-lg px-4 py-2 cursor-pointer"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 cursor-pointer transition-colors duration-300"
               />
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Sizes*
               </label>
               <input
                 type="text"
                 placeholder="e.g. 40, 41, 42"
                 onChange={(e) => setSize(e.target.value.split(","))}
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 StockX Link
               </label>
               <input
@@ -224,20 +224,20 @@ const AddKicksPage = () => {
                 value={stockxLink}
                 onChange={(e) => setStockxLink(e.target.value)}
                 placeholder="Enter StockX Link"
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               />
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 Free Shipping
               </label>
               <select
                 value={String(freeShipping)}
                 onChange={(e) => setFreeShipping(e.target.value === "true")}
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               >
                 <option value="false">No</option>
                 <option value="true">Yes</option>
@@ -245,13 +245,13 @@ const AddKicksPage = () => {
             </div>
 
             <div>
-              <label className="block text-gray-600 mb-2 font-medium">
+              <label className="block text-gray-600 dark:text-gray-300 mb-2 font-medium">
                 In Stock
               </label>
               <select
                 value={String(inStock)}
                 onChange={(e) => setInStock(e.target.value === "true")}
-                className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               >
                 <option value="true">Yes</option>
                 <option value="false">No</option>
@@ -264,10 +264,10 @@ const AddKicksPage = () => {
             whileTap={!loading ? { scale: 0.97 } : {}}
             disabled={loading}
             onClick={handleSubmit}
-            className={`w-full flex items-center justify-center gap-2 bg-black text-white py-3 rounded-xl font-medium shadow-md transition-all duration-300 ${
+            className={`w-full flex items-center justify-center gap-2 bg-black dark:bg-green-600 text-white py-3 rounded-xl font-medium shadow-md transition-all duration-300 ${
               loading
                 ? "opacity-80 cursor-not-allowed"
-                : "hover:bg-rose-700 hover:shadow-lg"
+                : "hover:bg-rose-700 dark:hover:bg-green-500 hover:shadow-lg"
             }`}
           >
             {loading ? (

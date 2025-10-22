@@ -106,19 +106,19 @@ const Hero: React.FC = () => {
   }, [current]);
 
   return (
-    <section className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 overflow-hidden">
+    <section className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* 🧩 Text & Thumbnails */}
       <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight text-gray-900 dark:text-white transition-colors">
           Paraplug
         </h1>
-        <p className="text-gray-600 mb-6 max-w-md">
+        <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md transition-colors">
           Your Store For All Exclusive Nike And Jordan Sneakers — It’s all about
           new arrivals!!!
         </p>
         <LoadingLink
           href="/store"
-          className="bg-black hover:bg-rose-600 text-white font-semibold py-3 px-8 rounded-full transition-all"
+          className="bg-black dark:bg-rose-600 hover:bg-rose-600 dark:hover:bg-rose-500 text-white font-semibold py-3 px-8 rounded-full transition-all"
         >
           Shop Now
         </LoadingLink>
@@ -139,7 +139,7 @@ const Hero: React.FC = () => {
                 index === current
                   ? "border-rose-500 scale-105"
                   : "border-transparent opacity-60 hover:opacity-100"
-              }`}
+              } bg-gray-100 dark:bg-gray-800`}
             >
               <Image
                 src={img.src}

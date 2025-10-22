@@ -26,7 +26,6 @@ const AllShoes = () => {
   const lastItemRef = useRef<HTMLDivElement | null>(null);
   const { LoadingLink } = useLoading();
 
-  // 🔹 Fetch products
   const fetchProducts = useCallback(
     async (reset = false) => {
       if (loading) return;
@@ -57,7 +56,6 @@ const AllShoes = () => {
     [search, skip, loading]
   );
 
-  // 🔹 Handle infinite scroll
   useEffect(() => {
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(
@@ -72,34 +70,30 @@ const AllShoes = () => {
     if (lastItemRef.current) observer.current.observe(lastItemRef.current);
   }, [hasMore, loading, fetchProducts]);
 
-  // 🔹 Search effect
   useEffect(() => {
     const delay = setTimeout(() => fetchProducts(true), 500);
     return () => clearTimeout(delay);
   }, [search]);
 
-  // 🔹 Initial load
   useEffect(() => {
     fetchProducts(true);
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 md:py-8 md:px-4">
-      {/* 🔍 Search Bar */}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 md:py-8 md:px-4 transition-colors duration-300">
       <div className="flex items-center justify-center mb-8">
         <div className="relative w-full max-w-md">
-          <MagnifyingGlassIcon className="absolute left-3 top-2.5 w-5 h-5 text-gray-400" />
+          <MagnifyingGlassIcon className="absolute left-3 top-2.5 w-5 h-5 text-gray-400 dark:text-gray-500" />
           <input
             type="text"
             placeholder="Search shoes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-rose-500 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors duration-300"
           />
         </div>
       </div>
 
-      {/* 🏷️ Products Grid */}
       <motion.div
         layout
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
@@ -111,7 +105,7 @@ const AllShoes = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.03 }}
-            className="bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden hover:scale-[1.02] transition-all"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg overflow-hidden hover:scale-[1.02] transition-all duration-300"
           >
             <LoadingLink href={`/admin/kicks/${product._id}`}>
               <div className="aspect-square overflow-hidden">
@@ -124,7 +118,7 @@ const AllShoes = () => {
                 />
               </div>
               <div className="p-3 text-center">
-                <p className="font-semibold capitalize text-gray-800 text-sm truncate">
+                <p className="font-semibold capitalize text-gray-800 dark:text-gray-100 text-sm truncate">
                   {product.name}
                 </p>
               </div>
@@ -133,13 +127,14 @@ const AllShoes = () => {
         ))}
       </motion.div>
 
-      {/* 🌀 Infinite Scroll Loader */}
       <div ref={lastItemRef} className="flex justify-center py-10">
         {loading && (
-          <div className="w-6 h-6 border-4 border-black border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-4 border-black dark:border-white border-t-transparent rounded-full animate-spin" />
         )}
         {!hasMore && !loading && (
-          <p className="text-gray-500 text-sm">No more shoes to load 👟</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">
+            No more shoes to load 👟
+          </p>
         )}
       </div>
     </div>

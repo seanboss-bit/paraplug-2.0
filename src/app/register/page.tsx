@@ -100,24 +100,24 @@ const Register = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-10 flex flex-col justify-center items-center px-4 relative">
+    <section className="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 flex flex-col justify-center items-center px-4 relative">
       {/* Back Button */}
       <button
         onClick={() => router.back()}
-        className="md:absolute top-6 left-6 flex items-center gap-1 text-gray-700 hover:text-black transition self-start mb-[40px] md:mb-0"
+        className="md:absolute top-6 left-6 flex items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-black dark:hover:text-white transition self-start mb-[40px] md:mb-0"
       >
         <ArrowLeftIcon className="w-5 h-5" />
         <span className="text-sm font-medium">Back</span>
       </button>
 
       {/* Card */}
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold uppercase tracking-tight">
+          <h1 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900 dark:text-gray-100">
             Create Account
           </h1>
-          <p className="text-gray-500 text-sm mt-2">
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
             Join Paraplug and start shopping your favorite sneakers
           </p>
         </div>
@@ -126,7 +126,7 @@ const Register = () => {
         <div className="flex flex-col items-center mb-8">
           <label
             htmlFor="user_img"
-            className="relative w-24 h-24 rounded-full border-2 border-gray-200 flex items-center justify-center cursor-pointer overflow-hidden group hover:border-black transition"
+            className="relative w-24 h-24 rounded-full border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center cursor-pointer overflow-hidden group hover:border-black dark:hover:border-white transition"
           >
             {preview ? (
               <Image
@@ -157,7 +157,7 @@ const Register = () => {
               }}
             />
           </label>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
             Click the icon to upload your photo
           </p>
         </div>
@@ -167,72 +167,72 @@ const Register = () => {
           {/* Full Name */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="relative">
-              <UserIcon className="w-5 h-5 text-gray-400 absolute left-3 top-3" />
+              <UserIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-3" />
               <input
                 type="text"
                 placeholder="First Name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full bg-gray-100 border border-gray-200 rounded-lg pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-black transition"
+                className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black dark:focus:border-white transition"
               />
             </div>
             <div className="relative">
-              <UserIcon className="w-5 h-5 text-gray-400 absolute left-3 top-3" />
+              <UserIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-3" />
               <input
                 type="text"
                 placeholder="Last Name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="w-full bg-gray-100 border border-gray-200 rounded-lg pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-black transition"
+                className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black dark:focus:border-white transition"
               />
             </div>
           </div>
 
           {/* Email */}
           <div className="relative">
-            <EnvelopeIcon className="w-5 h-5 text-gray-400 absolute left-3 top-3" />
+            <EnvelopeIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-3" />
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-gray-100 border border-gray-200 rounded-lg pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-black transition"
+              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black dark:focus:border-white transition"
             />
           </div>
 
           {/* Password + Confirm */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="relative">
-              <LockClosedIcon className="w-5 h-5 text-gray-400 absolute left-3 top-3" />
+              <LockClosedIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-3" />
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-gray-100 border border-gray-200 rounded-lg pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-black transition"
+                className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black dark:focus:border-white transition"
               />
             </div>
             <div className="relative">
-              <LockClosedIcon className="w-5 h-5 text-gray-400 absolute left-3 top-3" />
+              <LockClosedIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-3" />
               <input
                 type="password"
                 placeholder="Confirm Password"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
-                className="w-full bg-gray-100 border border-gray-200 rounded-lg pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-black transition"
+                className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black dark:focus:border-white transition"
               />
             </div>
           </div>
 
           {/* Referral Code */}
           <div className="relative">
-            <LinkIcon className="w-5 h-5 text-gray-400 absolute left-3 top-3" />
+            <LinkIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-3" />
             <input
               type="text"
               placeholder="Referral Code (optional)"
               value={referral}
               onChange={(e) => setReferral(e.target.value)}
-              className="w-full bg-gray-100 border border-gray-200 rounded-lg pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:border-black transition"
+              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black dark:focus:border-white transition"
             />
           </div>
 
@@ -240,7 +240,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2.5 font-semibold text-sm tracking-wide hover:bg-gray-800 transition ${
+            className={`w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2.5 font-semibold text-sm tracking-wide hover:bg-gray-800 dark:hover:bg-gray-700 transition ${
               loading ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
@@ -254,17 +254,21 @@ const Register = () => {
 
         {/* Divider */}
         <div className="flex items-center justify-center my-5">
-          <div className="h-px bg-gray-200 flex-1" />
-          <span className="px-3 text-xs text-gray-400 uppercase">or</span>
-          <div className="h-px bg-gray-200 flex-1" />
+          <div className="h-px bg-gray-200 dark:bg-gray-600 flex-1" />
+          <span className="px-3 text-xs text-gray-400 dark:text-gray-500 uppercase">
+            or
+          </span>
+          <div className="h-px bg-gray-200 dark:bg-gray-600 flex-1" />
         </div>
 
         {/* Already have account */}
         <div className="text-center text-sm">
-          <span className="text-gray-500">Already have an account?</span>{" "}
+          <span className="text-gray-500 dark:text-gray-400">
+            Already have an account?
+          </span>{" "}
           <LoadingLink
             href="/login"
-            className="font-medium text-gray-900 hover:underline"
+            className="font-medium text-gray-900 dark:text-gray-100 hover:underline"
           >
             Login
           </LoadingLink>
@@ -272,7 +276,7 @@ const Register = () => {
       </div>
 
       {/* Footer */}
-      <p className="text-xs text-gray-400 mt-10">
+      <p className="text-xs text-gray-400 dark:text-gray-500 mt-10">
         &copy; {new Date().getFullYear()} Paraplug. All rights reserved.
       </p>
     </section>

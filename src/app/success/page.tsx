@@ -47,7 +47,7 @@ function SuccessPage() {
   }, [reference]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-white flex flex-col items-center justify-center px-6 text-center">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex flex-col items-center justify-center px-6 text-center">
       {/* Success Animation */}
       <motion.div
         initial={{ scale: 0, rotate: 180 }}
@@ -63,7 +63,7 @@ function SuccessPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-green-600/10 p-6 rounded-full border border-green-600/40 backdrop-blur-lg"
+          className="bg-green-600/10 dark:bg-green-600/20 p-6 rounded-full border border-green-600/40 dark:border-green-600/50 backdrop-blur-lg"
         >
           {loading ? (
             <div className="h-20 w-20 flex items-center justify-center">
@@ -82,7 +82,7 @@ function SuccessPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-3xl md:text-4xl font-semibold mt-6"
+          className="text-3xl md:text-4xl font-semibold mt-6 text-gray-900 dark:text-gray-100"
         >
           {loading
             ? "Verifying Payment..."
@@ -95,13 +95,13 @@ function SuccessPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="text-gray-400 mt-2 max-w-md"
+          className="text-gray-400 dark:text-gray-500 mt-2 max-w-md"
         >
           {loading
             ? "Please wait while we confirm your transaction."
             : verified
-            ? "Your order has been confirmed. You’ll receive an update once it’s on the way. Thank you for shopping with us!"
-            : "We couldn’t verify your payment. Please contact support if funds were deducted."}
+            ? "Your order has been confirmed. You'll receive an update once it's on the way. Thank you for shopping with us!"
+            : "We couldn't verify your payment. Please contact support if funds were deducted."}
         </motion.p>
       </motion.div>
 
@@ -149,7 +149,7 @@ function SuccessPage() {
             duration: 6,
             ease: "easeInOut",
           }}
-          className="absolute top-1/3 left-1/2 w-72 h-72 bg-green-500/20 rounded-full blur-3xl"
+          className="absolute top-1/3 left-1/2 w-72 h-72 bg-green-500/20 dark:bg-green-500/10 rounded-full blur-3xl"
         />
       </motion.div>
     </div>

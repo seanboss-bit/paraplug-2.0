@@ -25,7 +25,6 @@ export default function DashboardPage() {
   const id =
     typeof window !== "undefined" ? localStorage.getItem("user_id") : null;
 
-  // Function to extract initials
   const getInitials = (name: string = "") => {
     const parts = name.trim().split(" ");
     return parts
@@ -34,14 +33,12 @@ export default function DashboardPage() {
       .slice(0, 2);
   };
 
-  // GET USER ORDERS
   const getOrders = async () => {
     try {
       setLoading(true);
       const res = await getUserOrders(id as string);
       setOrders(res?.order);
-      console.log(res);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.response?.data?.error);
     } finally {
@@ -49,7 +46,6 @@ export default function DashboardPage() {
     }
   };
 
-  // Fetch user details
   useEffect(() => {
     const handleUserDetails = async () => {
       if (!id) {
@@ -61,9 +57,8 @@ export default function DashboardPage() {
       try {
         setLoading(true);
         const res = await getUserDetails(id);
-        console.log(res);
         setUser(res?.data?.user || null);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         setError(err || "Failed to fetch user details");
       } finally {
@@ -81,7 +76,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="p-6 space-y-6 animate-pulse">
+      <div className="p-6 space-y-6 animate-pulse transition-colors duration-300">
         <div className="bg-gray-200 dark:bg-gray-700 h-20 rounded-xl"></div>
         <div className="bg-gray-200 dark:bg-gray-700 h-48 rounded-xl"></div>
         <div className="bg-gray-200 dark:bg-gray-700 h-48 rounded-xl"></div>
@@ -92,15 +87,16 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div className="p-6 text-center text-red-500 font-semibold">{error}</div>
+      <div className="p-6 text-center text-red-500 dark:text-red-400 font-semibold transition-colors duration-300">
+        {error}
+      </div>
     );
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 transition-colors duration-300">
       {/* Welcome */}
-      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow flex flex-col md:flex-row items-center gap-4">
-        {/* Profile Avatar */}
+      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow flex flex-col md:flex-row items-center gap-4 transition-colors duration-300">
         <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-xl font-bold text-gray-700 dark:text-gray-200">
           {user?.image ? (
             <Image
@@ -119,14 +115,14 @@ export default function DashboardPage() {
           <h2 className="text-2xl capitalize font-semibold text-gray-900 dark:text-gray-100">
             Welcome, {user?.fullName || "User"} 👋
           </h2>
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
             Here’s a summary of your orders and referrals.
           </p>
         </div>
       </section>
 
       {/* Orders */}
-      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow transition-colors duration-300">
         <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
           Orders
         </h3>
@@ -144,9 +140,8 @@ export default function DashboardPage() {
               return (
                 <div
                   key={order._id || i}
-                  className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow hover:shadow-md transition flex flex-col"
+                  className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow hover:shadow-md transition-all duration-300 flex flex-col"
                 >
-                  {/* 🖼 Product images grid */}
                   <div
                     className={`grid ${gridCols} items-center gap-2 mb-3 h-40 overflow-hidden rounded-md`}
                   >
@@ -163,7 +158,6 @@ export default function DashboardPage() {
                     ))}
                   </div>
 
-                  {/* 🧾 Order ID and Status */}
                   <p className="text-gray-800 dark:text-gray-200 font-semibold">
                     Order #{i + 1} •{" "}
                     <span
@@ -175,8 +169,7 @@ export default function DashboardPage() {
                     </span>
                   </p>
 
-                  {/* 💰 Total & Date */}
-                  <p className="text-gray-500 text-sm mt-1">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                     ₦{order.total.toLocaleString()} •{" "}
                     {new Date(order.createdAt).toLocaleDateString("en-GB", {
                       day: "2-digit",
@@ -185,13 +178,11 @@ export default function DashboardPage() {
                     })}
                   </p>
 
-                  {/* 🧍 Customer */}
                   <p className="text-gray-700 capitalize dark:text-gray-300 text-sm mt-2">
                     {order.name} {order.lname}
                   </p>
 
-                  {/* 🛒 Number of items */}
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">
                     {order.orders.length} item
                     {order.orders.length > 1 ? "s" : ""}
                   </p>
@@ -199,13 +190,15 @@ export default function DashboardPage() {
               );
             })
           ) : (
-            <p className="text-center md:col-span-3">No Orders Yet</p>
+            <p className="text-center md:col-span-3 text-gray-600 dark:text-gray-400">
+              No Orders Yet
+            </p>
           )}
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+      {/* Reviews */}
+      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow transition-colors duration-300">
         <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
           My Reviews
         </h3>
@@ -215,7 +208,7 @@ export default function DashboardPage() {
             {user?.reviews.map((review, i) => (
               <div
                 key={i}
-                className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"
+                className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors duration-300"
               >
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200 capitalize">
@@ -231,7 +224,7 @@ export default function DashboardPage() {
                       ) : (
                         <StarOutline
                           key={idx}
-                          className="w-5 h-5 text-gray-300"
+                          className="w-5 h-5 text-gray-300 dark:text-gray-500"
                         />
                       )
                     )}
@@ -240,32 +233,32 @@ export default function DashboardPage() {
                 <p className="text-gray-600 dark:text-gray-300 text-sm mb-2 leading-relaxed">
                   {review.comment}
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-gray-500">
                   {new Date(review.createdAt).toLocaleDateString()}
                 </p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             You haven&apos;t written any reviews yet.
           </p>
         )}
       </section>
 
       {/* Referral */}
-      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+      <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow transition-colors duration-300">
         <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
           Referral Progress
         </h3>
 
-        <p className="bg-gray-100 text-[12px] mb-4 rounded-lg p-3">
+        <p className="bg-gray-100 dark:bg-gray-700 text-[12px] text-gray-800 dark:text-gray-200 mb-4 rounded-lg p-3 transition-colors duration-300">
           {referralLink}
         </p>
 
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-3">
+        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-3 transition-colors duration-300">
           <div
-            className="bg-black h-3 rounded-full"
+            className="bg-black dark:bg-gray-100 h-3 rounded-full transition-all duration-300"
             //  @ts-ignore
             style={{ width: `${(user?.referredUsers?.length / 10) * 100}%` }}
           ></div>
@@ -283,7 +276,7 @@ export default function DashboardPage() {
               navigator.clipboard.writeText(referralLink);
               toast.info("Referral link copied!");
             }}
-            className="bg-black text-white px-4 py-2 rounded-md text-sm hover:bg-gray-900 transition"
+            className="bg-black dark:bg-gray-100 text-white dark:text-gray-900 px-4 py-2 rounded-md text-sm hover:bg-gray-900 dark:hover:bg-gray-200 transition-all duration-300"
           >
             Copy Referral Link
           </button>
@@ -306,7 +299,7 @@ export default function DashboardPage() {
             </div>
           </FacebookShareButton>
           <TwitterShareButton url={referralLink}>
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white">
+            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 transition-colors duration-300">
               <FaXTwitter className="size-5" />
             </div>
           </TwitterShareButton>

@@ -24,7 +24,7 @@ const CartPage = () => {
       const res = await getUserCart();
       const data = res?.cart || { products: [], quantity: 0, total: 0 };
       setCart(data);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error("Failed to fetch your cart");
@@ -35,11 +35,12 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    // if (!user) {
-    //   window.location.href = "/";
-    //   return;
-    // }
-    fetchCart();
+    if (!user) {
+      window.location.href = "/";
+      return;
+    } else {
+      fetchCart();
+    }
   }, [user]);
 
   if (!user) return null;

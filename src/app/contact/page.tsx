@@ -6,7 +6,6 @@ import { motion, Variants } from "framer-motion";
 import { sendMessage } from "@/services/insta";
 import { toast } from "sonner";
 
-// ✅ Define form data type
 interface FormData {
   name: string;
   email: string;
@@ -14,7 +13,6 @@ interface FormData {
   message: string;
 }
 
-// ✅ Define API response type (optional, adjust to match your backend)
 interface ApiResponse {
   status: number;
   data?: {
@@ -43,7 +41,6 @@ const Page: React.FC = () => {
     show: { y: 0, opacity: 1, transition: { ease: "easeOut", duration: 0.6 } },
   };
 
-  // 🔹 Handle input change
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -51,7 +48,6 @@ const Page: React.FC = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🔹 Handle form submit
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -79,14 +75,14 @@ const Page: React.FC = () => {
   return (
     <>
       <Navbar />
-      <section className="bg-white py-16 px-4 text-gray-900">
+      <section className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-16 px-4 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-12">
             <h1 className="text-3xl sm:text-4xl font-bold uppercase tracking-wide">
               Customer Care
             </h1>
-            <p className="text-gray-500 text-sm sm:text-base mt-2 max-w-md mx-auto">
+            <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base mt-2 max-w-md mx-auto">
               Reach out with any questions, feedback, or support requests. We’re
               here to help.
             </p>
@@ -99,7 +95,7 @@ const Page: React.FC = () => {
               <img
                 src="https://media4.giphy.com/media/dXQySomSteGzajNFmD/giphy.gif?cid=6c09b952e2858279ed861eac4aeb83f6727458f8be9fc5e9&ep=v1_internal_gifs_gifId&rid=giphy.gif&ct=g"
                 alt="support-animation"
-                className="rounded-2xl shadow-2xl w-[85%] md:w-[90%] object-cover border border-gray-300"
+                className="rounded-2xl shadow-2xl w-[85%] md:w-[90%] object-cover border border-gray-300 dark:border-gray-700"
               />
             </div>
 
@@ -109,10 +105,10 @@ const Page: React.FC = () => {
               animate="show"
               variants={container}
               onSubmit={handleSubmit}
-              className="w-full md:w-1/2 bg-gray-50 border border-gray-200 rounded-2xl p-8 md:p-10 shadow-lg"
+              className="w-full md:w-1/2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 md:p-10 shadow-lg transition-colors duration-300"
             >
               <motion.div className="mb-6" variants={item}>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-gray-700 dark:text-gray-200 font-medium mb-2">
                   Full Name
                 </label>
                 <input
@@ -121,13 +117,13 @@ const Page: React.FC = () => {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Enter your full name"
-                  className="w-full p-3 bg-transparent border border-gray-400 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800"
+                  className="w-full p-3 bg-transparent border border-gray-400 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-gray-300 transition-colors duration-300"
                   required
                 />
               </motion.div>
 
               <motion.div className="mb-6" variants={item}>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-gray-700 dark:text-gray-200 font-medium mb-2">
                   Email
                 </label>
                 <input
@@ -136,13 +132,13 @@ const Page: React.FC = () => {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-                  className="w-full p-3 bg-transparent border border-gray-400 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800"
+                  className="w-full p-3 bg-transparent border border-gray-400 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-gray-300 transition-colors duration-300"
                   required
                 />
               </motion.div>
 
               <motion.div className="mb-6" variants={item}>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-gray-700 dark:text-gray-200 font-medium mb-2">
                   Subject
                 </label>
                 <input
@@ -151,13 +147,13 @@ const Page: React.FC = () => {
                   value={form.subject}
                   onChange={handleChange}
                   placeholder="Enter the subject"
-                  className="w-full p-3 bg-transparent border border-gray-400 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800"
+                  className="w-full p-3 bg-transparent border border-gray-400 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-gray-300 transition-colors duration-300"
                   required
                 />
               </motion.div>
 
               <motion.div className="mb-6" variants={item}>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-gray-700 dark:text-gray-200 font-medium mb-2">
                   Message
                 </label>
                 <textarea
@@ -166,7 +162,7 @@ const Page: React.FC = () => {
                   onChange={handleChange}
                   rows={5}
                   placeholder="Write your message..."
-                  className="w-full p-3 bg-transparent border border-gray-400 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 resize-none"
+                  className="w-full p-3 bg-transparent border border-gray-400 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-gray-300 resize-none transition-colors duration-300"
                   required
                 ></textarea>
               </motion.div>
@@ -177,8 +173,8 @@ const Page: React.FC = () => {
                 disabled={loading}
                 className={`w-full font-semibold py-3 rounded-lg transition-all duration-300 ${
                   loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-gray-800 hover:bg-black text-white"
+                    ? "bg-gray-400 dark:bg-gray-600 cursor-not-allowed"
+                    : "bg-gray-800 dark:bg-gray-100 hover:bg-black dark:hover:bg-gray-200 text-white dark:text-gray-900"
                 }`}
               >
                 {loading ? "Sending..." : "Send Message"}

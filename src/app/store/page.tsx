@@ -106,20 +106,20 @@ const Page = () => {
   return (
     <>
       <Navbar />
-      <section className="bg-white text-gray-900 min-h-screen">
+      <section className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
         {/* Filters Section */}
-        <div className="sticky top-[80px] z-40 bg-white/90 backdrop-blur-sm shadow-sm border-b border-gray-100">
+        <div className="sticky top-[80px] z-40 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm border-b border-gray-100 dark:border-gray-800">
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Search */}
-            <div className="flex items-center w-full sm:w-[40%] border border-gray-300 rounded-full overflow-hidden">
+            <div className="flex items-center w-full sm:w-[40%] border border-gray-300 dark:border-gray-700 rounded-full overflow-hidden">
               <input
                 type="text"
                 placeholder="Search sneakers..."
-                className="flex-1 px-4 py-2 text-sm focus:outline-none bg-transparent"
+                className="flex-1 px-4 py-2 text-sm focus:outline-none bg-transparent text-gray-900 dark:text-gray-100"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <button className="px-3 text-gray-600 hover:text-gray-800 transition">
+              <button className="px-3 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition">
                 <MagnifyingGlassIcon className="w-5 h-5" />
               </button>
             </div>
@@ -131,7 +131,7 @@ const Page = () => {
                 onChange={(e) =>
                   setSort(e.target.value as "newest" | "asc" | "desc")
                 }
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none hover:border-gray-500 transition"
+                className="border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none hover:border-gray-500 dark:hover:border-gray-600 transition bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               >
                 <option value="newest">Newest</option>
                 <option value="asc">Price: Low → High</option>
@@ -141,7 +141,7 @@ const Page = () => {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none hover:border-gray-500 transition"
+                className="border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none hover:border-gray-500 dark:hover:border-gray-600 transition bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               >
                 <option value="all">All</option>
                 <option value="jordans">Air Jordan</option>
@@ -154,7 +154,7 @@ const Page = () => {
         {/* Product Results */}
         <div className="max-w-7xl mx-auto px-4 py-10">
           {products.length === 0 && !loading ? (
-            <div className="text-center py-20 text-gray-500 text-sm">
+            <div className="text-center py-20 text-gray-500 dark:text-gray-400 text-sm">
               No products found
             </div>
           ) : (
@@ -201,10 +201,12 @@ const Page = () => {
             className="h-10 mt-10 flex justify-center items-center"
           >
             {loading && (
-              <p className="text-gray-500 text-sm">Loading more...</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">
+                Loading more...
+              </p>
             )}
             {!hasMore && !loading && products.length > 0 && (
-              <p className="text-gray-400 text-xs">
+              <p className="text-gray-400 dark:text-gray-500 text-xs">
                 That is all the kicks we have for now
               </p>
             )}

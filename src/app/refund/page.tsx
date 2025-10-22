@@ -10,14 +10,14 @@ const page = () => {
   return (
     <>
       <Navbar />
-      <section className="bg-white py-16 px-4 font-poppins text-gray-800">
+      <section className="bg-white dark:bg-gray-900 py-16 px-4 font-poppins text-gray-800 dark:text-gray-100">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold uppercase tracking-wide text-gray-900">
+            <h2 className="text-3xl sm:text-4xl font-bold uppercase tracking-wide text-gray-900 dark:text-gray-100">
               Refund Policy
             </h2>
-            <p className="text-gray-500 text-sm sm:text-base mt-2">
+            <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base mt-2">
               Process to return your package
             </p>
           </div>
@@ -25,20 +25,24 @@ const page = () => {
           {/* Main Content */}
           <div className="flex flex-col md:flex-row gap-10 md:gap-16">
             {/* Contact Section */}
-            <div className="md:w-1/3 bg-gray-50 p-6 rounded-2xl shadow-md">
+            <div className="md:w-1/3 bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl shadow-md">
               <div className="space-y-5">
                 <div>
-                  <h6 className="text-sm font-semibold uppercase text-gray-600">
+                  <h6 className="text-sm font-semibold uppercase text-gray-600 dark:text-gray-400">
                     Email:
                   </h6>
-                  <p className="text-gray-700">paraplugs@gmail.com</p>
+                  <p className="text-gray-700 dark:text-gray-200">
+                    paraplugs@gmail.com
+                  </p>
                 </div>
 
                 <div>
-                  <h6 className="text-sm font-semibold uppercase text-gray-600">
+                  <h6 className="text-sm font-semibold uppercase text-gray-600 dark:text-gray-400">
                     Phone:
                   </h6>
-                  <p className="text-gray-700">+234 812 9198 327</p>
+                  <p className="text-gray-700 dark:text-gray-200">
+                    +234 812 9198 327
+                  </p>
                 </div>
 
                 {/* Socials (clickable links) */}
@@ -48,7 +52,7 @@ const page = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Paraplug on Instagram"
-                    className="text-gray-700 hover:text-rose-500 transition"
+                    className="text-gray-700 dark:text-gray-200 hover:text-rose-500 transition"
                   >
                     <FaInstagram />
                   </a>
@@ -58,7 +62,7 @@ const page = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Paraplug on Twitter"
-                    className="text-gray-700 hover:text-rose-500 transition"
+                    className="text-gray-700 dark:text-gray-200 hover:text-rose-500 transition"
                   >
                     <FaTwitter />
                   </a>
@@ -68,7 +72,7 @@ const page = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Paraplug on Snapchat"
-                    className="text-gray-700 hover:text-rose-500 transition"
+                    className="text-gray-700 dark:text-gray-200 hover:text-rose-500 transition"
                   >
                     <FaSnapchatGhost />
                   </a>
@@ -89,7 +93,7 @@ const page = () => {
                 To start your return, contact us at{" "}
                 <a
                   href="mailto:paraplugs@gmail.com"
-                  className="text-rose-600 underline hover:text-rose-500"
+                  className="text-rose-600 dark:text-rose-400 underline hover:text-rose-500 dark:hover:text-rose-300"
                 >
                   paraplugs@gmail.com
                 </a>
@@ -109,7 +113,9 @@ const page = () => {
                 Rivers State.
               </p>
 
-              <p className="uppercase font-bold text-rose-600">Re-Funds</p>
+              <p className="uppercase font-bold text-rose-600 dark:text-rose-500">
+                Re-Funds
+              </p>
 
               <p>
                 We’ll notify you once we’ve received your return to let you know
@@ -123,7 +129,7 @@ const page = () => {
           <div className="text-center mt-12">
             <Link
               href="mailto:paraplugs@gmail.com"
-              className="inline-flex items-center gap-2 bg-rose-600 text-white px-6 py-3 rounded-full font-medium hover:bg-rose-700 transition"
+              className="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-600 text-white px-6 py-3 rounded-full font-medium transition"
             >
               Write to us
               <EnvelopeIcon className="w-5 h-5" />

@@ -131,11 +131,11 @@ export default function AdminUsersPage() {
   };
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 dark:bg-gray-900">
       <motion.h1
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-2xl md:text-3xl font-bold text-gray-800 mb-6"
+        className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6"
       >
         Manage Users
       </motion.h1>
@@ -154,7 +154,7 @@ export default function AdminUsersPage() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white shadow-md rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition h-fit"
+                  className="bg-white dark:bg-gray-800 shadow-md rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition h-fit"
                 >
                   <div
                     className="flex items-center justify-between p-4 cursor-pointer"
@@ -167,27 +167,27 @@ export default function AdminUsersPage() {
                         <Image
                           src={user.image}
                           alt={user.fullName}
-                          className="w-12 h-12 rounded-full object-cover border border-gray-200"
+                          className="w-12 h-12 rounded-full object-cover border border-gray-200 dark:border-gray-600"
                           width={1100}
                           height={1100}
                           priority
                         />
                       ) : (
-                        <UserCircleIcon className="w-12 h-12 text-gray-400" />
+                        <UserCircleIcon className="w-12 h-12 text-gray-400 dark:text-gray-500" />
                       )}
                       <div>
-                        <p className="font-semibold capitalize text-[14px] line-clamp-1 text-gray-800">
+                        <p className="font-semibold capitalize text-[14px] line-clamp-1 text-gray-800 dark:text-gray-100">
                           {user.fullName}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           Joined {new Date(user.createdAt).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
                     {isExpanded ? (
-                      <ChevronUpIcon className="w-6 h-6 text-gray-500" />
+                      <ChevronUpIcon className="w-6 h-6 text-gray-500 dark:text-gray-400" />
                     ) : (
-                      <ChevronDownIcon className="w-6 h-6 text-gray-500" />
+                      <ChevronDownIcon className="w-6 h-6 text-gray-500 dark:text-gray-400" />
                     )}
                   </div>
 
@@ -198,34 +198,36 @@ export default function AdminUsersPage() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="px-4 py-4 border-t border-gray-100 space-y-3"
+                        className="px-4 py-4 border-t border-gray-100 dark:border-gray-700 space-y-3"
                       >
                         <div>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
                             <span className="font-semibold">Name:</span>{" "}
                             {`${user.fullName} ${user?.username}`}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                             <span className="font-semibold">Email:</span>{" "}
                             {user.email}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                             <span className="font-semibold">Role:</span>{" "}
                             {user.isAdmin ? (
-                              <span className="text-green-600 font-semibold">
+                              <span className="text-green-600 dark:text-green-400 font-semibold">
                                 Admin
                               </span>
                             ) : (
-                              <span className="text-gray-600">User</span>
+                              <span className="text-gray-600 dark:text-gray-400">
+                                User
+                              </span>
                             )}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                             <span className="font-semibold">
                               No of Refferals:
                             </span>{" "}
                             {user.referredUsers?.length}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                             <span className="font-semibold">
                               No of Reviews:
                             </span>{" "}
@@ -241,8 +243,8 @@ export default function AdminUsersPage() {
                             }
                             className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-semibold transition ${
                               user.isAdmin
-                                ? "bg-red-50 text-red-600 hover:bg-red-100"
-                                : "bg-green-50 text-green-600 hover:bg-green-100"
+                                ? "bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-800/40"
+                                : "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-800/40"
                             }`}
                           >
                             {loadingUser === user._id ? (
@@ -271,15 +273,15 @@ export default function AdminUsersPage() {
           {/* Infinite Scroll Trigger */}
           <div ref={observerRef} className="flex justify-center mt-8 mb-4">
             {loadingMore && (
-              <div className="flex items-center gap-2 text-gray-500">
-                <span className="h-5 w-5 border-2 border-gray-300 border-t-transparent rounded-full animate-spin" />
+              <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                <span className="h-5 w-5 border-2 border-gray-300 dark:border-gray-600 border-t-transparent rounded-full animate-spin" />
                 Loading more users...
               </div>
             )}
           </div>
 
           {!hasMore && !loadingMore && (
-            <p className="text-center text-gray-400 mt-4">
+            <p className="text-center text-gray-400 dark:text-gray-500 mt-4">
               You’ve reached the end 🎉
             </p>
           )}
@@ -296,18 +298,18 @@ function LoadingSkeleton() {
       {Array.from({ length: 6 }).map((_, i: number) => (
         <div
           key={i}
-          className="bg-white shadow-md rounded-2xl border border-gray-100 p-4"
+          className="bg-white dark:bg-gray-800 shadow-md rounded-2xl border border-gray-100 dark:border-gray-700 p-4"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gray-200 rounded-full" />
+            <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full" />
             <div className="space-y-2 flex-1">
-              <div className="h-3 bg-gray-200 rounded w-2/3" />
-              <div className="h-3 bg-gray-200 rounded w-1/3" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
             </div>
           </div>
           <div className="space-y-2">
-            <div className="h-3 bg-gray-200 rounded w-full" />
-            <div className="h-3 bg-gray-200 rounded w-5/6" />
+            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full" />
+            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-5/6" />
           </div>
         </div>
       ))}

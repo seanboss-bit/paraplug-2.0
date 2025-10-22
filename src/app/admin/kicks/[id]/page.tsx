@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { getSingleProduct } from "@/services/store";
 import { deleteProduct, updateProduct } from "@/services/admin";
+
 interface Shoe {
   _id?: string;
   name?: string;
@@ -35,7 +36,6 @@ const SingleShoe = () => {
   const [updatedKicks, setUpdatedKicks] = useState<UpdatedKicks>({});
   const [size, setSize] = useState<string[]>([]);
 
-  // 🧩 Placeholder: Fetch shoe details
   const getItem = async () => {
     try {
       setLoading(true);
@@ -52,7 +52,6 @@ const SingleShoe = () => {
     if (id) getItem();
   }, [id]);
 
-  // 🧩 Placeholder: Handle update API call
   const handleUpdate = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -61,18 +60,15 @@ const SingleShoe = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const updatedData: any = { ...updatedKicks };
 
-      // ✅ Only include sizes if user entered something
       if (size.length > 0) {
         updatedData.sizes = size;
       }
 
-      // ✅ Prevent sending empty updates
       if (Object.keys(updatedData).length === 0) {
         toast.info("No changes to update");
         return;
       }
 
-      console.log(updatedData);
       await updateProduct(id, updatedData);
       toast.success("Kicks updated successfully!");
       router.push("/admin/kicks");
@@ -84,7 +80,6 @@ const SingleShoe = () => {
     }
   };
 
-  // 🧩 Placeholder: Delete shoe API call
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this product?")) return;
     setLoading(true);
@@ -111,7 +106,7 @@ const SingleShoe = () => {
   };
 
   return (
-    <div className="bg-gray-50 md:py-10 md:px-4">
+    <div className="bg-gray-50 dark:bg-gray-900 md:py-10 md:px-4 transition-colors duration-300">
       {loading && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
@@ -121,12 +116,11 @@ const SingleShoe = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-12"
+        className="max-w-5xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 md:p-12 transition-colors duration-300"
       >
         <div className="flex flex-col md:flex-row gap-8">
-          {/* 🖼️ Image Section */}
           <div className="flex flex-col items-center md:w-1/3">
-            <div className="relative w-64 h-64 rounded-xl overflow-hidden border">
+            <div className="relative w-64 h-64 rounded-xl overflow-hidden border dark:border-gray-700">
               {singleItem?.image ? (
                 <Image
                   src={singleItem.image}
@@ -135,7 +129,7 @@ const SingleShoe = () => {
                   className="object-contain"
                 />
               ) : (
-                <div className="flex items-center justify-center h-full text-gray-400">
+                <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-500">
                   No Image
                 </div>
               )}
@@ -148,18 +142,17 @@ const SingleShoe = () => {
             </button>
           </div>
 
-          {/* 🧾 Form Section */}
           <form
             onSubmit={handleUpdate}
-            className="flex-1 space-y-6 md:border-l md:pl-8"
+            className="flex-1 space-y-6 md:border-l md:pl-8 dark:border-gray-700"
           >
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
               Edit Shoe Details
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Name
                 </label>
                 <input
@@ -167,12 +160,12 @@ const SingleShoe = () => {
                   name="name"
                   defaultValue={singleItem?.name}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Price
                 </label>
                 <input
@@ -180,12 +173,12 @@ const SingleShoe = () => {
                   name="price"
                   defaultValue={singleItem?.price}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Slash Price
                 </label>
                 <input
@@ -193,19 +186,19 @@ const SingleShoe = () => {
                   name="slashPrice"
                   defaultValue={singleItem?.slashPrice}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Category
                 </label>
                 <select
                   name="category"
                   defaultValue={singleItem?.category ?? ""}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
                 >
                   <option value="">Select category</option>
                   <option value="nike">Nike</option>
@@ -215,7 +208,7 @@ const SingleShoe = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">
+              <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                 Description
               </label>
               <textarea
@@ -223,25 +216,25 @@ const SingleShoe = () => {
                 defaultValue={singleItem?.description}
                 onChange={handleInputChange}
                 rows={4}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Sizes (comma separated)
                 </label>
                 <input
                   type="text"
                   defaultValue={singleItem?.sizes?.join(",")}
                   onChange={(e) => setSize(e.target.value.split(","))}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   StockX Link
                 </label>
                 <input
@@ -249,21 +242,21 @@ const SingleShoe = () => {
                   name="stockX"
                   defaultValue={singleItem?.stockX}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Free Shipping
                 </label>
                 <select
                   name="freeShipping"
                   defaultValue={String(singleItem?.freeShipping)}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
                 >
                   <option value="false">No</option>
                   <option value="true">Yes</option>
@@ -271,14 +264,14 @@ const SingleShoe = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                   In Stock
                 </label>
                 <select
                   name="inStock"
                   defaultValue={String(singleItem?.inStock)}
                   onChange={handleInputChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-gray-100"
                 >
                   <option value="true">Yes</option>
                   <option value="false">No</option>

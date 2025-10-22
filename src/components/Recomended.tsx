@@ -24,17 +24,17 @@ const Recommended = () => {
   }, []);
 
   return (
-    <div className="px-6 mb-[60px]">
-      <h4 className="font-semibold capitalize text-2xl md:text-3xl mb-[25px]">
+    <div className="px-6 mb-[60px] bg-white dark:bg-[#0f0f0f] transition-colors duration-500">
+      <h4 className="font-semibold capitalize text-2xl md:text-3xl mb-[25px] text-gray-900 dark:text-gray-100">
         Recommended for you
       </h4>
 
       {loading ? (
-        <div className="flex justify-center py-12 text-gray-500 text-sm">
+        <div className="flex justify-center py-12 text-gray-500 dark:text-gray-400 text-sm">
           Loading recommendations...
         </div>
       ) : products.length === 0 ? (
-        <div className="text-center py-12 text-gray-500 text-sm">
+        <div className="text-center py-12 text-gray-500 dark:text-gray-400 text-sm">
           No recommendations available
         </div>
       ) : (

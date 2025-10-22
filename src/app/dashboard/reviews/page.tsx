@@ -32,14 +32,12 @@ export default function ReviewsPage() {
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // 🔍 Filter products
   const filteredProducts = useMemo(() => {
     return products.filter((p) =>
       p?.name?.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, products]);
 
-  // ⚡ Fetch available products
   const getMinimalProducts = async () => {
     try {
       setLoadingProducts(true);
@@ -64,7 +62,6 @@ export default function ReviewsPage() {
     }
   }, [reviewType]);
 
-  // 📝 Submit review
   const handleSubmit = async () => {
     if (reviewType === "product" && !selectedProduct) {
       toast.warning("Please select a product first.");
@@ -90,7 +87,6 @@ export default function ReviewsPage() {
         } review submitted successfully!`
       );
 
-      // Reset
       setReview("");
       setRating(0);
       setSelectedProduct(null);
@@ -109,7 +105,6 @@ export default function ReviewsPage() {
         Leave a Review
       </h2>
 
-      {/* Review Type Toggle */}
       <div className="flex gap-4 mb-6">
         {["product", "website"].map((type) => (
           <button
@@ -131,7 +126,6 @@ export default function ReviewsPage() {
         ))}
       </div>
 
-      {/* Product Dropdown */}
       {reviewType === "product" && (
         <div className="relative mb-6">
           <button
@@ -165,9 +159,8 @@ export default function ReviewsPage() {
 
           {dropdownOpen && (
             <div className="absolute z-20 mt-2 w-full bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 max-h-64 overflow-y-auto">
-              {/* Search Bar */}
               <div className="sticky top-0 bg-gray-100 dark:bg-gray-800 p-2 flex items-center gap-2 border-b border-gray-200 dark:border-gray-600">
-                <MagnifyingGlassIcon className="w-5 h-5 text-gray-500" />
+                <MagnifyingGlassIcon className="w-5 h-5 text-gray-500 dark:text-gray-300" />
                 <input
                   type="text"
                   placeholder="Search product..."
@@ -177,7 +170,6 @@ export default function ReviewsPage() {
                 />
               </div>
 
-              {/* Products List */}
               {loadingProducts ? (
                 <p className="text-gray-500 dark:text-gray-400 text-center py-4 animate-pulse">
                   Fetching products...
@@ -214,7 +206,6 @@ export default function ReviewsPage() {
         </div>
       )}
 
-      {/* Star Rating */}
       <div className="flex items-center gap-1 mb-6">
         {[1, 2, 3, 4, 5].map((value) =>
           value <= (hoverRating || rating) ? (
@@ -240,7 +231,6 @@ export default function ReviewsPage() {
         </span>
       </div>
 
-      {/* Review Textarea */}
       <textarea
         value={review}
         onChange={(e) => setReview(e.target.value)}
@@ -248,7 +238,6 @@ export default function ReviewsPage() {
         className="w-full h-40 p-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 mb-4 resize-none"
       ></textarea>
 
-      {/* Submit Button */}
       <button
         onClick={handleSubmit}
         disabled={submitting}

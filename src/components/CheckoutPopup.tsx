@@ -57,7 +57,7 @@ export default function CheckoutPopup({
         } else {
           toast.error("Payment initialization failed");
         }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.error(error);
         toast.error("Failed to initialize payment");
@@ -99,7 +99,7 @@ export default function CheckoutPopup({
               <button
                 onClick={() => setShow(false)}
                 disabled={loading}
-                className="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-red-500 transition disabled:opacity-50"
+                className="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition disabled:opacity-50"
               >
                 <XMarkIcon className="size-6" />
               </button>
@@ -118,7 +118,7 @@ export default function CheckoutPopup({
                     placeholder="Phone Number"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-700 outline-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-600 outline-none"
                     disabled={loading}
                   />
                   <input
@@ -126,7 +126,7 @@ export default function CheckoutPopup({
                     placeholder="Alt Phone Number"
                     value={altNumber}
                     onChange={(e) => setAltNumber(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-700 outline-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-600 outline-none"
                     disabled={loading}
                   />
                 </div>
@@ -135,7 +135,7 @@ export default function CheckoutPopup({
                   placeholder="Enter Your Address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full h-28 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-700 outline-none resize-none"
+                  className="w-full h-28 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-700 dark:focus:ring-gray-600 outline-none resize-none"
                   disabled={loading}
                 ></textarea>
               </form>
@@ -143,7 +143,7 @@ export default function CheckoutPopup({
               <button
                 onClick={makePayment}
                 disabled={loading}
-                className="mt-6 w-full flex items-center justify-center gap-2 bg-gray-900 text-white py-3 rounded-xl hover:bg-gray-700 transition font-medium disabled:opacity-70 disabled:cursor-not-allowed"
+                className="mt-6 w-full flex items-center justify-center gap-2 bg-gray-900 dark:bg-gray-700 text-white py-3 rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition font-medium disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <motion.span

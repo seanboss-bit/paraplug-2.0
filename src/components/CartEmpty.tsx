@@ -18,11 +18,11 @@ const CartEmpty = () => {
         Your cart is empty
       </h2>
       <p className="text-gray-500 dark:text-gray-400 mb-6">
-        Looks like you haven’t added anything yet.
+        Looks like you haven&lsquo;t added anything yet.
       </p>
       <LoadingLink
         href="/store"
-        className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-xl hover:bg-gray-700 transition"
+        className="inline-flex items-center gap-2 bg-gray-900 dark:bg-gray-700 text-white px-6 py-3 rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition"
       >
         <ArrowLeftIcon className="size-5" /> Start Shopping
       </LoadingLink>

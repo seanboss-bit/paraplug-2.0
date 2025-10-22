@@ -61,11 +61,11 @@ export default function MainAdmin() {
   };
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-2xl md:text-3xl font-bold mb-8 text-gray-800"
+        className="text-2xl md:text-3xl font-bold mb-8 text-gray-800 dark:text-gray-100"
       >
         Admin Dashboard
       </motion.h1>
@@ -76,11 +76,11 @@ export default function MainAdmin() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-2xl shadow-md border border-gray-100 p-6"
+          className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-300"
         >
           <div className="flex items-center gap-3 mb-6">
             <EnvelopeIcon className="h-7 w-7 text-green-600" />
-            <h2 className="text-lg font-semibold text-gray-800">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               Email Subscribers
             </h2>
           </div>
@@ -88,7 +88,9 @@ export default function MainAdmin() {
           {loadingEmails ? (
             <LoadingList count={5} />
           ) : emails.length === 0 ? (
-            <p className="text-gray-400 text-sm">No subscribers found.</p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm">
+              No subscribers found.
+            </p>
           ) : (
             <div className="space-y-2 max-h-96 overflow-y-scroll overflow-x-hidden">
               {emails.map((email) => (
@@ -96,7 +98,7 @@ export default function MainAdmin() {
                   key={email._id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-gray-50 px-4 py-2 rounded-md text-gray-700 border border-gray-100 hover:bg-gray-100 flex items-center justify-between"
+                  className="bg-gray-50 dark:bg-gray-700 px-4 py-2 rounded-md text-gray-700 dark:text-gray-200 border border-gray-100 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center justify-between transition-colors duration-300"
                 >
                   <span>{email.email}</span>
                   <button
@@ -121,11 +123,11 @@ export default function MainAdmin() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl shadow-md border border-gray-100 p-6"
+          className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-300"
         >
           <div className="flex items-center gap-3 mb-6">
             <ChatBubbleLeftEllipsisIcon className="h-7 w-7 text-blue-600" />
-            <h2 className="text-lg font-semibold text-gray-800">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               Messages from Users
             </h2>
           </div>
@@ -133,7 +135,9 @@ export default function MainAdmin() {
           {loadingMessages ? (
             <LoadingList count={3} lines={3} />
           ) : messages.length === 0 ? (
-            <p className="text-gray-400 text-sm">No messages available.</p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm">
+              No messages available.
+            </p>
           ) : (
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {messages.map((msg) => (
@@ -141,12 +145,14 @@ export default function MainAdmin() {
                   key={msg._id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="border border-gray-100 bg-gray-50 rounded-xl p-4 hover:shadow-sm transition"
+                  className="border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 rounded-xl p-4 hover:shadow-sm transition-colors duration-300"
                 >
-                  <div className="flex flex-wrap justify-between text-sm text-gray-600 mb-2">
-                    <p className="font-semibold text-gray-800">{msg.name}</p>
+                  <div className="flex flex-wrap justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
+                    <p className="font-semibold text-gray-800 dark:text-gray-100">
+                      {msg.name}
+                    </p>
                     <p className="italic">{msg.subject}</p>
-                    <p className="text-gray-400">
+                    <p className="text-gray-400 dark:text-gray-400">
                       {new Date(msg.createdAt).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
@@ -154,10 +160,12 @@ export default function MainAdmin() {
                       })}
                     </p>
                   </div>
-                  <p className="text-gray-700 text-sm leading-relaxed mb-2">
+                  <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed mb-2">
                     {msg.message}
                   </p>
-                  <p className="text-xs text-gray-500">{msg.email}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {msg.email}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -179,11 +187,14 @@ function LoadingList({
   return (
     <div className="space-y-4 animate-pulse">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="bg-gray-100 rounded-md p-3 space-y-2">
+        <div
+          key={i}
+          className="bg-gray-100 dark:bg-gray-700 rounded-md p-3 space-y-2 transition-colors duration-300"
+        >
           {Array.from({ length: lines }).map((_, j) => (
             <div
               key={j}
-              className="h-3 bg-gray-200 rounded w-[80%]"
+              className="h-3 bg-gray-200 dark:bg-gray-600 rounded"
               style={{ width: `${80 - j * 10}%` }}
             />
           ))}

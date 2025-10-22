@@ -25,21 +25,25 @@ const Instagram = () => {
   }, []);
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-gray-50 dark:bg-gray-900 py-16 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">
+        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">
           #GotItOnParaplug
         </h2>
-        <p className="text-gray-500 mb-10 text-sm md:text-base">
+        <p className="text-gray-500 dark:text-gray-300 mb-10 text-sm md:text-base">
           Tag your photos with{" "}
-          <span className="font-semibold">#GotItOnParaplug</span>
+          <span className="font-semibold text-gray-900 dark:text-white">
+            #GotItOnParaplug
+          </span>{" "}
           on Instagram and get featured here!
         </p>
 
         {loading ? (
-          <p className="text-gray-400 text-sm">Loading posts...</p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm">
+            Loading posts...
+          </p>
         ) : posts.length === 0 ? (
-          <p className="text-gray-500">No posts yet</p>
+          <p className="text-gray-500 dark:text-gray-400">No posts yet</p>
         ) : (
           <motion.div
             initial="hidden"
@@ -62,7 +66,7 @@ const Instagram = () => {
                   hidden: { opacity: 0, scale: 0.95 },
                   visible: { opacity: 1, scale: 1 },
                 }}
-                className="relative group overflow-hidden rounded-xl shadow-sm hover:shadow-lg bg-white transition"
+                className="relative group overflow-hidden rounded-xl shadow-sm hover:shadow-lg bg-white dark:bg-gray-800 transition-colors duration-500"
               >
                 <Image
                   src={post.image}
@@ -74,7 +78,7 @@ const Instagram = () => {
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center text-white space-y-2">
                   <LoadingLink
                     href="/store"
-                    className="px-4 py-2 bg-white text-black text-sm rounded-full hover:bg-gray-100 transition"
+                    className="px-4 py-2 bg-white dark:bg-gray-900 text-black dark:text-white text-sm rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                   >
                     Shop Now
                   </LoadingLink>

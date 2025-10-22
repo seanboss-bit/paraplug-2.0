@@ -19,7 +19,7 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useUserStore();
-  const { startLoading } = useLoading();
+  const { startLoading, LoadingLink } = useLoading();
   const router = useRouter();
   const navLinks = [
     {
@@ -44,12 +44,11 @@ export default function DashboardLayout({
     },
   ];
 
-  const { LoadingLink } = useLoading();
-  // useEffect(() => {
-  //   if (!user) {
-  //     window.location.href = "/store";
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (!user) {
+      window.location.href = "/store";
+    }
+  }, [user]);
   return (
     <div className="h-screen flex bg-gray-50 dark:bg-gray-900 overflow-hidden">
       {/* SIDEBAR */}
