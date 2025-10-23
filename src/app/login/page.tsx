@@ -38,6 +38,7 @@ const Page = () => {
       toast.success("Login successful!");
       login(res);
       localStorage.setItem("user_id", res?._id as string);
+      console.log(res);
       if (res?.isAdmin === true) {
         startLoading();
         router.push("/admin");
@@ -45,10 +46,14 @@ const Page = () => {
         startLoading();
         router.push("/store");
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("❌Login error:", error);
-      toast.error(error?.response?.data?.error || "Something went wrong");
+      toast.error(
+        error?.response?.data?.message ||
+          error?.response?.data?.error ||
+          "Something went wrong"
+      );
     } finally {
       setLoading(false);
     }
@@ -127,12 +132,16 @@ const Page = () => {
 
           <div className="flex items-center justify-center my-4">
             <div className="h-px bg-gray-200 dark:bg-gray-700 flex-1" />
-            <span className="px-3 text-xs text-gray-400 dark:text-gray-500 uppercase">or</span>
+            <span className="px-3 text-xs text-gray-400 dark:text-gray-500 uppercase">
+              or
+            </span>
             <div className="h-px bg-gray-200 dark:bg-gray-700 flex-1" />
           </div>
 
           <div className="text-center text-sm">
-            <span className="text-gray-500 dark:text-gray-400">Don’t have an account?</span>{" "}
+            <span className="text-gray-500 dark:text-gray-400">
+              Don’t have an account?
+            </span>{" "}
             <LoadingLink
               href="/register"
               className="font-medium text-gray-900 dark:text-gray-100 hover:underline"
