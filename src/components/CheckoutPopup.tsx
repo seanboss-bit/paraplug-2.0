@@ -37,7 +37,7 @@ export default function CheckoutPopup({
       try {
         setLoading(true);
         const res = await handlePayment(
-          cart.total >= 150000 ? cart.total : cart.total + 3500,
+          cart.total >= 300000 ? cart.total : cart.total + 3500,
           address,
           altNumber,
           phone,
