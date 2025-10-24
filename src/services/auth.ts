@@ -36,7 +36,7 @@ export const verifyEmail = async (id: string, token: string) => {
     const res = await api.get(`/user/${id}/${token}`);
     return res.data;
   } catch (error) {
-    console.error("❌ Failed to Register User:", error);
+    console.error("❌ Failed to Verify User:", error);
     throw error;
   }
 };
