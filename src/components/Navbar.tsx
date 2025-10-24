@@ -44,7 +44,7 @@ const Navbar = () => {
     try {
       const res = await getUserCart();
       setCart(res?.cart);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error?.response?.data?.error);
     }
@@ -66,7 +66,7 @@ const Navbar = () => {
             height={277}
             width={901}
             alt="header_logo"
-            className="w-[130px] sm:w-[150px] h-[60px] object-contain"
+            className="w-[130px] sm:w-[150px] h-[60px] object-contain dark:brightness-0 dark:invert"
           />
         </LoadingLink>
 
