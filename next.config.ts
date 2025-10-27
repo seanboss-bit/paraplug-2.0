@@ -8,7 +8,6 @@ const withPWA = nextPWA({
   disable: process.env.NODE_ENV === "development", // Fixed: was NEXT_PUBLIC_NODE_ENV
   scope: "/", // Add explicit scope for mobile
   sw: "sw.js", // Ensure it's served from root
-  swSrc: "public/sw.js",
   buildExcludes: [/app-build-manifest\.json$/, /middleware-manifest\.json$/], // Exclude problematic manifests
   // Minimal runtime caching to avoid issues
   runtimeCaching: [
