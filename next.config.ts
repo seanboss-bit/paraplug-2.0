@@ -7,6 +7,22 @@ const withPWA = nextPWA({
   skipWaiting: true,
   disable: process.env.NEXT_PUBLIC_NODE_ENV === "development",
   swSrc: "public/sw.js",
+  buildExcludes: [/app-build-manifest\.json$/],
+  modifyURLPrefix: {
+    "/_next/": "/_next/",
+  },
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/,
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "offlineCache",
+        expiration: {
+          maxEntries: 200,
+        },
+      },
+    },
+  ],
 });
 
 const nextConfig: NextConfig = {

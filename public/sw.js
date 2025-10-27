@@ -1,5 +1,25 @@
 import { precacheAndRoute } from "workbox-precaching";
-precacheAndRoute(self.__WB_MANIFEST || []);
+
+// Add error handling for precaching
+try {
+  precacheAndRoute(self.__WB_MANIFEST || [], {
+    // Ignore errors
+    ignoreURLParametersMatching: [/.*/],
+  });
+} catch (error) {
+  console.warn("Precaching failed:", error);
+  // Continue anyway - push notifications don't need precaching
+}
+
+// Force activation even if precaching fails
+self.addEventListener("install", () => {
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(clients.claim());
+});
+
 self.addEventListener("push", function (event) {
   let data = {};
   try {
