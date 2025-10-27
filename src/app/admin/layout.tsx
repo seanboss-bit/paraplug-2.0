@@ -48,7 +48,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   // Detect if mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 1000);
+      setIsMobile(window.innerWidth < 768);
+      console.log(window.innerWidth);
     };
 
     checkMobile();
@@ -63,29 +64,29 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }, [user]);
 
   // Only show auto-prompt on desktop
-  useEffect(() => {
-    // Don't run on mobile
-    if (isMobile) return;
+  // useEffect(() => {
+  //   // Don't run on mobile
+  //   if (isMobile) return;
 
-    const hasAsked = localStorage.getItem("pushPrompted");
+  //   const hasAsked = localStorage.getItem("pushPrompted");
 
-    if (!hasAsked && user?.isAdmin) {
-      const wantsPush = window.confirm(
-        "Do you want to enable push notifications?"
-      );
-      if (wantsPush) {
-        subscribeAdminToPush()
-          .then(() => {
-            toast.success("Push notifications enabled successfully!");
-          })
-          .catch((err) => {
-            console.error("Push subscription failed:", err);
-            toast.error("Failed to enable notifications");
-          });
-      }
-      localStorage.setItem("pushPrompted", "true");
-    }
-  }, [user, isMobile]);
+  //   if (!hasAsked && user?.isAdmin) {
+  //     const wantsPush = window.confirm(
+  //       "Do you want to enable push notifications?"
+  //     );
+  //     if (wantsPush) {
+  //       subscribeAdminToPush()
+  //         .then(() => {
+  //           toast.success("Push notifications enabled successfully!");
+  //         })
+  //         .catch((err) => {
+  //           console.error("Push subscription failed:", err);
+  //           toast.error("Failed to enable notifications");
+  //         });
+  //     }
+  //     localStorage.setItem("pushPrompted", "true");
+  //   }
+  // }, [user, isMobile]);
 
   const handleEnableNotifications = async () => {
     try {
@@ -109,6 +110,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           pathname={pathname}
           handleLogout={handleLogout}
           isMobile={false}
+          onEnableNotifications={handleEnableNotifications}
         />
       </aside>
 
@@ -187,7 +189,7 @@ function SidebarContent({
   pathname: string;
   handleLogout: () => void;
   isMobile?: boolean;
-  onEnableNotifications?: () => void;
+  onEnableNotifications: () => void;
 }) {
   const { LoadingLink } = useLoading();
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
@@ -225,7 +227,7 @@ function SidebarContent({
         })}
 
         {/* Mobile-only notification button */}
-        {isMobile && !notificationsEnabled && onEnableNotifications && (
+        {!notificationsEnabled && (
           <button
             onClick={() => {
               onEnableNotifications();
