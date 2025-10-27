@@ -10,6 +10,7 @@ import {
   PlusIcon,
   VideoCameraIcon,
   ArchiveBoxIcon,
+  BellIcon,
 } from "@heroicons/react/24/outline";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -33,6 +34,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { logout, user } = useUserStore();
   const { startLoading } = useLoading();
 
@@ -43,13 +45,28 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     localStorage.removeItem("user_id");
   };
 
+  // Detect if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   useEffect(() => {
     if (user?.isAdmin === false) {
       window.location.href = "/dashboard";
     }
   }, [user]);
 
+  // Only show auto-prompt on desktop
   useEffect(() => {
+    // Don't run on mobile
+    if (isMobile) return;
+
     const hasAsked = localStorage.getItem("pushPrompted");
 
     if (!hasAsked && user?.isAdmin) {
@@ -68,13 +85,31 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       }
       localStorage.setItem("pushPrompted", "true");
     }
-  }, [user]);
+  }, [user, isMobile]);
+
+  const handleEnableNotifications = async () => {
+    try {
+      toast.loading("Enabling notifications...");
+      await subscribeAdminToPush();
+      toast.dismiss();
+      toast.success("Push notifications enabled successfully!");
+      localStorage.setItem("pushPrompted", "true");
+    } catch (err) {
+      toast.dismiss();
+      console.error("Push subscription failed:", err);
+      toast.error("Failed to enable notifications: " + (err as Error).message);
+    }
+  };
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       {/* Sidebar for desktop */}
       <aside className="hidden md:flex w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-100 dark:border-gray-700 flex-col transition-colors duration-300">
-        <SidebarContent pathname={pathname} handleLogout={handleLogout} />
+        <SidebarContent
+          pathname={pathname}
+          handleLogout={handleLogout}
+          isMobile={false}
+        />
       </aside>
 
       {/* Mobile header */}
@@ -109,7 +144,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                   <XMarkIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
                 </button>
               </div>
-              <SidebarContent pathname={pathname} handleLogout={handleLogout} />
+              <SidebarContent
+                pathname={pathname}
+                handleLogout={handleLogout}
+                isMobile={true}
+                onEnableNotifications={handleEnableNotifications}
+              />
             </motion.div>
 
             {/* Backdrop */}
@@ -141,11 +181,23 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 function SidebarContent({
   pathname,
   handleLogout,
+  isMobile = false,
+  onEnableNotifications,
 }: {
   pathname: string;
   handleLogout: () => void;
+  isMobile?: boolean;
+  onEnableNotifications?: () => void;
 }) {
   const { LoadingLink } = useLoading();
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
+  useEffect(() => {
+    // Check if notifications are already enabled
+    const hasPrompted = localStorage.getItem("pushPrompted");
+    setNotificationsEnabled(hasPrompted === "true");
+  }, []);
+
   return (
     <>
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
@@ -171,6 +223,20 @@ function SidebarContent({
             </LoadingLink>
           );
         })}
+
+        {/* Mobile-only notification button */}
+        {isMobile && !notificationsEnabled && onEnableNotifications && (
+          <button
+            onClick={() => {
+              onEnableNotifications();
+              setNotificationsEnabled(true);
+            }}
+            className="flex items-center gap-3 w-full px-4 py-2.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 font-medium transition-all duration-200 mt-4"
+          >
+            <BellIcon className="h-5 w-5" />
+            <span className="font-medium">Enable Notifications</span>
+          </button>
+        )}
       </nav>
 
       <div className="border-t border-gray-100 dark:border-gray-700 p-4">

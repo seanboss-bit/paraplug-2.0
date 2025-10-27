@@ -5,11 +5,26 @@ const withPWA = nextPWA({
   dest: "public",
   register: true,
   skipWaiting: true,
-  disable: process.env.NEXT_PUBLIC_NODE_ENV === "development",
-  // Use your custom service worker
-  cacheOnFrontEndNav: true,
-  reloadOnOnline: true,
-  buildExcludes: [/app-build-manifest\.json$/],
+  disable: process.env.NODE_ENV === "development", // Fixed: was NEXT_PUBLIC_NODE_ENV
+  scope: "/", // Add explicit scope for mobile
+  sw: "sw.js", // Ensure it's served from root
+  swSrc: "public/sw.js",
+  buildExcludes: [/app-build-manifest\.json$/, /middleware-manifest\.json$/], // Exclude problematic manifests
+  // Minimal runtime caching to avoid issues
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/,
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "offlineCache",
+        networkTimeoutSeconds: 10,
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+  ],
 });
 
 const nextConfig: NextConfig = {
