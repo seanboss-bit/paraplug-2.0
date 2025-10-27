@@ -36,8 +36,17 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
       }
 
       setLoadingItem(id);
+      toast.loading(
+        type === "dec"
+          ? "Reducing Quantity......"
+          : "Increasing Quantity........."
+      );
       await handleUpdateCartQuantity(id, type);
       refreshCart();
+      toast.dismiss();
+      toast.success(
+        type === "dec" ? "Reduced Successfully" : "Increased Successfully"
+      );
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error("Failed to update quantity");
@@ -49,7 +58,9 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
   const removeItem = async (id: string) => {
     try {
       setLoadingItem(id);
+      toast.loading("Removing Item.....");
       await handleRemoveCartItem(id);
+      toast.dismiss();
       toast.success("Item removed");
       refreshCart();
     } catch (err) {
@@ -72,11 +83,6 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
     }
   };
 
-  const toPay = async () => {
-    toast.success("Redirecting to Paystack...");
-    // your paystack logic goes here
-  };
-
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -95,9 +101,9 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
           </div>
 
           <div className="space-y-6">
-            {cart.products.map((item: CartItem) => (
+            {cart.products.map((item: CartItem, i) => (
               <div
-                key={item._id}
+                key={i}
                 className="flex md:flex-row flex-col md:items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-4"
               >
                 <div className="grid grid-cols-3 md:flex items-center gap-4">
@@ -113,8 +119,8 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
                     <h3 className="text-gray-800 dark:text-gray-100 font-semibold capitalize line-clamp-2">
                       {item.name}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {item.category}
+                    <p className="text-sm capitalize text-gray-500 dark:text-gray-400">
+                      {item.category} | {item?.size}
                     </p>
                     <p className="text-gray-700 dark:text-gray-300 font-medium">
                       ₦{item.price.toLocaleString()}
@@ -166,10 +172,10 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
               <span>Subtotal</span>
               <span>₦{numberWithCommas(cart?.total)}</span>
             </div>
-            {cart?.total > 300000 ? null : (
+            {cart?.total > 500000 ? null : (
               <div className="flex justify-between">
                 <span>Shipping</span>
-                <span>₦3,500</span>
+                <span>₦10,000</span>
               </div>
             )}
             <div className="border-t border-gray-300 dark:border-gray-700 my-3"></div>
@@ -177,9 +183,9 @@ const CartFilled = ({ cart, refreshCart }: cartProps) => {
               <span>Total</span>
               <span>
                 ₦
-                {cart?.total > 300000
+                {cart?.total > 500000
                   ? numberWithCommas(cart?.total)
-                  : numberWithCommas(cart?.total + 3500)}
+                  : numberWithCommas(cart?.total + 10000)}
               </span>
             </div>
           </div>

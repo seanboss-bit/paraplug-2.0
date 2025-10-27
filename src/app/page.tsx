@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <ScrollingText
-        text="Get FREE delivery on all orders above NGN300,000 • Acrylic box available now • Show trending releases."
+        text="Get FREE delivery on all orders above NGN500,000 • Acrylic box available now • Show trending releases."
         speed={3}
       />
       <Navbar />

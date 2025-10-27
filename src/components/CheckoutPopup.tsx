@@ -1,5 +1,4 @@
 "use client";
-
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
 import { numberWithCommas } from "@/utils/functions";
@@ -24,11 +23,13 @@ export default function CheckoutPopup({
   const [altNumber, setAltNumber] = useState("");
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
+  // Remove delivery fee if address includes Lagos or Abuja
+  const isFreeDelivery = /lagos|abuja/i.test(address);
 
   const total =
-    cart.total >= 300000
+    cart.total >= 500000 || isFreeDelivery
       ? numberWithCommas(cart.total)
-      : numberWithCommas(cart.total + 3500);
+      : numberWithCommas(cart.total + 10000);
 
   const makePayment = async () => {
     if (!phone || !altNumber || !address) {
@@ -37,7 +38,7 @@ export default function CheckoutPopup({
       try {
         setLoading(true);
         const res = await handlePayment(
-          cart.total >= 300000 ? cart.total : cart.total + 3500,
+          cart.total >= 500000 || isFreeDelivery ? cart.total : cart.total + 10000,
           address,
           altNumber,
           phone,

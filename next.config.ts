@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
+import nextPWA from "next-pwa";
+
+const withPWA = nextPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NEXT_PUBLIC_NODE_ENV === "development",
+  swSrc: "public/sw.js",
+});
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
   images: {
     domains: [
       "paraplug.org",
@@ -16,4 +25,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// ✅ Type-safe export
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default withPWA(nextConfig as any);

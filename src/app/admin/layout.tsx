@@ -17,6 +17,8 @@ import { ReactNode, useEffect, useState } from "react";
 import clsx from "clsx";
 import { useUserStore } from "@/store/userStore";
 import { useLoading } from "@/providers/LoadingProvider";
+import { subscribeAdminToPush } from "@/components/enablePush";
+import { toast } from "sonner";
 
 const navItems = [
   { name: "Dashboard", href: "/admin", icon: HomeIcon },
@@ -44,6 +46,27 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (user?.isAdmin === false) {
       window.location.href = "/dashboard";
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const hasAsked = localStorage.getItem("pushPrompted");
+
+    if (!hasAsked && user?.isAdmin) {
+      const wantsPush = window.confirm(
+        "Do you want to enable push notifications?"
+      );
+      if (wantsPush) {
+        subscribeAdminToPush()
+          .then(() => {
+            toast.success("Push notifications enabled successfully!");
+          })
+          .catch((err) => {
+            console.error("Push subscription failed:", err);
+            toast.error("Failed to enable notifications");
+          });
+      }
+      localStorage.setItem("pushPrompted", "true");
     }
   }, [user]);
 
