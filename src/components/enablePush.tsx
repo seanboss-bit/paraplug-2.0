@@ -12,7 +12,9 @@ export async function subscribeAdminToPush() {
   const publicKey = data.publicKey;
 
   // Step 3 — Register service worker (next-pwa likely already handles this)
-  const registration = await navigator.serviceWorker.register("/sw.js");
+  const registration =
+    (await navigator.serviceWorker.register("/sw.js")) ||
+    (await navigator.serviceWorker.ready);
 
   // Step 4 — Ask browser for permission
   const permission = await Notification.requestPermission();
