@@ -6,23 +6,11 @@ const withPWA = nextPWA({
   register: true,
   skipWaiting: true,
   disable: process.env.NEXT_PUBLIC_NODE_ENV === "development",
+  // Use your custom service worker
   swSrc: "public/sw.js",
+  cacheOnFrontEndNav: true,
+  reloadOnOnline: true,
   buildExcludes: [/app-build-manifest\.json$/],
-  modifyURLPrefix: {
-    "/_next/": "/_next/",
-  },
-  runtimeCaching: [
-    {
-      urlPattern: /^https?.*/,
-      handler: "NetworkFirst",
-      options: {
-        cacheName: "offlineCache",
-        expiration: {
-          maxEntries: 200,
-        },
-      },
-    },
-  ],
 });
 
 const nextConfig: NextConfig = {
@@ -41,6 +29,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-// ✅ Type-safe export
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default withPWA(nextConfig as any);
