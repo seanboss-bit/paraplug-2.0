@@ -48,7 +48,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   // Detect if mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     checkMobile();
