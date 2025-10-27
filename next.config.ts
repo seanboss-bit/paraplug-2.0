@@ -7,7 +7,6 @@ const withPWA = nextPWA({
   skipWaiting: true,
   disable: process.env.NEXT_PUBLIC_NODE_ENV === "development",
   // Use your custom service worker
-  swSrc: "public/sw.js",
   cacheOnFrontEndNav: true,
   reloadOnOnline: true,
   buildExcludes: [/app-build-manifest\.json$/],
