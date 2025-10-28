@@ -28,7 +28,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <link rel="manifest" href="/manifest.json" />
       <meta name="theme-color" content="#130206" />
+      <meta name="background-color" content="#ffffff" />
+      <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="white-translucent"
+      />
       <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      <meta name="apple-mobile-web-app-title" content="Paraplug" />
       <body className={`${poppins.className} antialiased`}>
         <ClientProvider>{children}</ClientProvider>
       </body>
