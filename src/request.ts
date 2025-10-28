@@ -4,7 +4,7 @@ import axios, {
   AxiosError,
 } from "axios";
 
-const BASE_URL: string = process.env.NEXT_PUBLIC_TEST_URL ?? "";
+const BASE_URL: string = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
 // ✅ Create a single axios instance
 const api: AxiosInstance = axios.create({
