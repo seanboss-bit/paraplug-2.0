@@ -153,9 +153,20 @@ export async function subscribeAdminToPush() {
       }
     }
 
-    // Step 8 — Send subscription to backend
+    // Step 8 — Send subscription to backend with metadata
     console.log("[Push] Sending subscription to backend...");
-    await api.post("/push/subscribe", { subscription });
+
+    const subscriptionData = subscription.toJSON();
+
+    await api.post("/push/subscribe", {
+      subscription: {
+        endpoint: subscriptionData.endpoint,
+        keys: subscriptionData.keys,
+      },
+      userAgent: navigator.userAgent,
+      expirationTime: subscription.expirationTime || null,
+    });
+
     console.log("[Push] Subscription saved to backend successfully");
 
     return subscription;
@@ -204,4 +215,47 @@ export async function getNotificationPermission(): Promise<NotificationPermissio
     return "denied";
   }
   return Notification.permission;
+}
+
+// Optional: Function to check current subscription status
+export async function getCurrentSubscription(): Promise<PushSubscription | null> {
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+    return null;
+  }
+
+  try {
+    const registration = await navigator.serviceWorker.getRegistration("/");
+    if (!registration) return null;
+
+    return await registration.pushManager.getSubscription();
+  } catch (error) {
+    console.error("[Push] Failed to get current subscription:", error);
+    return null;
+  }
+}
+
+// Optional: Function to unsubscribe from push notifications
+export async function unsubscribeFromPush(): Promise<boolean> {
+  try {
+    const registration = await navigator.serviceWorker.getRegistration("/");
+    if (!registration) return false;
+
+    const subscription = await registration.pushManager.getSubscription();
+    if (!subscription) return false;
+
+    const unsubscribed = await subscription.unsubscribe();
+
+    if (unsubscribed) {
+      // Notify backend to remove subscription
+      await api.post("/push/unsubscribe", {
+        endpoint: subscription.endpoint,
+      });
+      console.log("[Push] Unsubscribed successfully");
+    }
+
+    return unsubscribed;
+  } catch (error) {
+    console.error("[Push] Unsubscribe failed:", error);
+    return false;
+  }
 }
