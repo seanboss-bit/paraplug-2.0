@@ -90,6 +90,7 @@ const Register = () => {
         email,
         image: uploadedUrl,
         password,
+        ref: referral
       });
       toast.success(res?.message || "Registration successful!");
       router.push("/login");

@@ -11,6 +11,7 @@ interface registerParams {
   email: string;
   image: string;
   password: string;
+  ref: string;
 }
 export const loginUser = async (params: loginParams) => {
   try {
