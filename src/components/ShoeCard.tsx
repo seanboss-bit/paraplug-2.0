@@ -20,6 +20,14 @@ const ShoeCard = ({ product, refresh, isFav = true }: ShoeCardProp) => {
   const [favLoading, setFavLoading] = useState(false);
   const { user } = useUserStore();
 
+  // ✅ Compute days since product was added
+  const daysSinceAdded = product?.createdAt
+    ? Math.floor(
+        (Date.now() - new Date(product.createdAt).getTime()) /
+          (1000 * 60 * 60 * 24)
+      )
+    : 9999;
+
   const handleLike = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -49,6 +57,13 @@ const ShoeCard = ({ product, refresh, isFav = true }: ShoeCardProp) => {
       className="hover:shadow-xl p-5 rounded-[20px] bg-gray-50 dark:bg-gray-800 cursor-pointer relative block"
       onClick={() => localStorage.setItem("product_id", product?._id)}
     >
+      {/* ✅ NEW tag */}
+      {daysSinceAdded <= 7 && (
+        <span className="absolute top-3 left-3 bg-rose-500 text-white dark:bg-rose-600 text-[10px] font-semibold px-2 py-[2px] rounded-full shadow-sm tracking-wide uppercase">
+          New
+        </span>
+      )}
+
       <Image
         width={100}
         height={100}

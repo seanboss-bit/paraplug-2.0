@@ -86,7 +86,7 @@ const SingleShoe = () => {
     try {
       await deleteProduct(id);
       toast.success("Shoe deleted!");
-      router.push("/shoes");
+      router.push("/admin/kicks");
     } catch (err) {
       console.error(err);
       toast.error("Failed to delete");
