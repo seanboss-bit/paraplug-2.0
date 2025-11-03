@@ -106,9 +106,9 @@ const Hero: React.FC = () => {
   }, [current]);
 
   return (
-    <section className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 overflow-hidden bg-white gap-9 dark:bg-gray-900 transition-colors duration-300">
       {/* 🧩 Text & Thumbnails */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
+      <div className="w-full overflow-hidden lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight text-gray-900 dark:text-white transition-colors">
           Paraplug
         </h1>

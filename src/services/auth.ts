@@ -41,3 +41,29 @@ export const verifyEmail = async (id: string, token: string) => {
     throw error;
   }
 };
+
+export const resetPassword = async (email: string) => {
+  try {
+    const res = await api.post(`/user/reset-password-request`, { email });
+    return res.data;
+  } catch (error) {
+    console.error("❌ Failed to Send Reset Email:", error);
+    throw error;
+  }
+};
+
+export const updatePassword = async (
+  id: string,
+  token: string,
+  password: string
+) => {
+  try {
+    const res = await api.post(`/user/reset-password/${id}/${token}`, {
+      password,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("❌ Failed to Reset User Password:", error);
+    throw error;
+  }
+};

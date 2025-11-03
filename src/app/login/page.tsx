@@ -63,7 +63,7 @@ const Page = () => {
     if (user) {
       window.location.href = "/store";
     }
-  }, []);
+  }, [user]);
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4">
@@ -117,6 +117,14 @@ const Page = () => {
                 onClick={() => setShowPassword(true)}
               />
             )}
+          </div>
+          <div className="text-right">
+            <LoadingLink
+              href="/forgot-password"
+              className="text-xs text-gray-600 dark:text-gray-300 hover:underline"
+            >
+              Forgot Password?
+            </LoadingLink>
           </div>
 
           <button
