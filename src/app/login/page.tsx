@@ -13,6 +13,7 @@ import { useLoading } from "@/providers/LoadingProvider";
 import { loginUser } from "@/services/auth";
 import { toast } from "sonner";
 import { useUserStore } from "@/store/userStore";
+import { User } from "@/interface/interface";
 
 const Page = () => {
   const router = useRouter();
@@ -24,6 +25,12 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useUserStore();
 
+  useEffect(() => {
+    if (user) {
+      window.location.href = "/store";
+    }
+  }, []);
+
   const logUserIn = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -34,18 +41,21 @@ const Page = () => {
 
     try {
       setLoading(true);
-      const res = await loginUser({ email, password });
-      toast.success("Login successful!");
-      login(res);
-      localStorage.setItem("user_id", res?._id as string);
-      console.log(res);
-      if (res?.isAdmin === true) {
-        startLoading();
-        router.push("/admin");
-      } else {
-        startLoading();
-        router.push("/store");
+      const res: User = await loginUser({ email, password });
+      if (res.isVerified) {
+        toast.success("Login successful!");
+        login(res);
+        localStorage.setItem("user_id", res?._id as string);
+        console.log(res);
+        if (res.isAdmin === true) {
+          startLoading();
+          router.push("/admin");
+        } else {
+          startLoading();
+          router.push("/store");
+        }
       }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("❌Login error:", error);
@@ -58,12 +68,6 @@ const Page = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      window.location.href = "/store";
-    }
-  }, [user]);
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4">

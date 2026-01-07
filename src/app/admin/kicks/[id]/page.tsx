@@ -72,9 +72,14 @@ const SingleShoe = () => {
       await updateProduct(id, updatedData);
       toast.success("Kicks updated successfully!");
       router.push("/admin/kicks");
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       console.error(err);
-      toast.error("Failed to update shoe");
+      toast.error(
+        err?.response?.data?.message ||
+          err?.response?.data?.error ||
+          "Something went wrong"
+      );
     } finally {
       setLoading(false);
     }

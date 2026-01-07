@@ -7,6 +7,7 @@ import {
   ChatBubbleLeftRightIcon,
   HeartIcon,
   HomeIcon,
+  ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 import { useLoading } from "@/providers/LoadingProvider";
 import { useUserStore } from "@/store/userStore";
@@ -21,6 +22,7 @@ export default function DashboardLayout({
   const { user, logout } = useUserStore();
   const { startLoading, LoadingLink } = useLoading();
   const router = useRouter();
+
   const navLinks = [
     {
       href: "/dashboard",
@@ -44,11 +46,21 @@ export default function DashboardLayout({
     },
   ];
 
+  // Add admin link if user is admin
+  if (user?.isAdmin) {
+    navLinks.push({
+      href: "/admin",
+      label: "Admin",
+      icon: <ShieldCheckIcon className="size-5" />,
+    });
+  }
+
   useEffect(() => {
     if (!user) {
       window.location.href = "/store";
     }
-  }, [user]);
+  }, []);
+
   return (
     <div className="h-screen flex bg-gray-50 dark:bg-gray-900 overflow-hidden">
       {/* SIDEBAR */}
