@@ -70,7 +70,7 @@ export default function DashboardPage() {
     getOrders();
   }, [id]);
 
-  const referralLink = `https://paraplug.store/register?ref=${
+  const referralLink = `https://paraplug.shop/register?ref=${
     user?.referralCode || "USER_ID"
   }`;
 
